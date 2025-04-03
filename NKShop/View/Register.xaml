@@ -1,0 +1,91 @@
+﻿<Window x:Class="NKShop.View.Register"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        xmlns:local="clr-namespace:NKShop.View"
+        mc:Ignorable="d"
+        Title="Вход в учётную запись" Height="450" Width="800" Background="#FF847C7C" >
+    <Window.Resources>
+        <Style x:Key="TouchButton" TargetType="{x:Type Button}">
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="ClickMode" Value="Press"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" CornerRadius="2" BorderThickness="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{x:Null}"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    
+    <Grid>
+        
+        
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="190*"/>
+            <ColumnDefinition Width="421*"/>
+            <ColumnDefinition Width="190*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="116*"/>
+
+            <RowDefinition Height="117*"/>
+            <RowDefinition Height="149*"/>
+
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <Button Content="Войти" MinHeight="50" MinWidth="150" Margin="0, 25, 0, 0" FontSize="20" Background="White" >
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Зарегистрировать новую учётную запись" Background="{x:Null}" Foreground="#FFC7BCBC" BorderBrush="{x:Null}" Style="{DynamicResource TouchButton}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
+
+            <TextBlock Text="Логин" MinHeight="30" HorizontalAlignment="Center" FontSize="20" Foreground="White" />
+            <TextBox Text="" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            
+            
+                <TextBlock Text="Пароль" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
+            <TextBox Text="" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </TextBox.Resources>
+
+            </TextBox>
+
+        </StackPanel>
+    </Grid>
+</Window>
