@@ -21,11 +21,11 @@
             </ListView.ContextMenu >
             <ListView.View >
                 <GridView>
-                    <GridViewColumn Header="Товары в заказе" DisplayMemberBinding="{Binding }" Width="150" />
-                    <GridViewColumn Header="Общий вес заказа" DisplayMemberBinding="{Binding }" Width="150" />
-                    <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding }" Width="150" />
-                    <GridViewColumn Header="Координаты заказа" DisplayMemberBinding="{Binding }" Width="150" />
-                    <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding }" Width="140" />
+                    <GridViewColumn Header="Товары в заказе" DisplayMemberBinding="{Binding ProductInOrder}" Width="150" />
+                    <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding OrderWeight}" Width="150" />
+                    <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding DesignatedCourier}" Width="150" />
+                    <GridViewColumn Header="Координаты заказа" DisplayMemberBinding="{Binding OrderCoordinates}" Width="150" />
+                    <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding OrderIsReady}" Width="140" />
                 </GridView>
             </ListView.View>
         </ListView>

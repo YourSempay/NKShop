@@ -1,0 +1,28 @@
+﻿<Window x:Class="NKShop.View.OrderHistory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NKShop.View"
+        mc:Ignorable="d"
+        Title="История заказов" Height="450" Width="800" Background="#FF847C7C">
+    <Grid>
+        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding HisOrders}" SelectedItem="{Binding SelectedHisOrder}" SelectionChanged="ListView_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" Foreground="#FF020202" Width="750" Height="400" Background="#FFDEDBDB">
+            <ListView.ContextMenu >
+                <ContextMenu >
+                    <MenuItem Header="Заказы в истории" Click="HistoryListOrders"/>
+                </ContextMenu>
+            </ListView.ContextMenu >
+            <ListView.View >
+                <GridView>
+                    <GridViewColumn Header="Товары в заказе" DisplayMemberBinding="{Binding HisProductInOrder}" Width="150" />
+                    <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding HisOrderWeight}" Width="150" />
+                    <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding HisDesignatedCourier}" Width="150" />
+                    <GridViewColumn Header="Координаты заказа" DisplayMemberBinding="{Binding HisOrderCoordinates}" Width="150" />
+                    <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding HisOrderReady}" Width="140" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        </Grid>
+</Window>

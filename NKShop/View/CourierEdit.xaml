@@ -1,0 +1,84 @@
+﻿<Window x:Class="NKShop.View.CourierEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NKShop.View"
+        mc:Ignorable="d"
+        Title="Изменение информации о курьере" Height="450" Width="800" Background="#FF847C7C">
+    <Grid>
+
+
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="190*"/>
+            <ColumnDefinition Width="421*"/>
+            <ColumnDefinition Width="190*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="359*"/>
+            <RowDefinition Height="75*"/>
+
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <Button Content="Изменить информацию" MinHeight="50" MinWidth="150" FontSize="20" Background="White" Margin="0, 10, 0, 0">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" >
+
+            <TextBlock Text="Ф.И.О. Курьера" MinHeight="30" HorizontalAlignment="Center" FontSize="20" Foreground="White" Margin="0, 10, 0, 0" />
+            <TextBox Text="" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+
+
+            <TextBlock Text="Внесённый залог" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
+            <TextBox Text="" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+
+            <TextBlock Text="Дата начала работы" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
+            <DatePicker Foreground="Black" Background="White" MinHeight="30" BorderBrush="#FF21201E" FontSize="15" >
+                <DatePicker.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+
+            <TextBlock Text="Свободен ли" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
+
+            <ComboBox  MinHeight="30" MinWidth="250" Width="250" BorderBrush="#FF21201E"  Background="White" >
+                <ComboBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </ComboBox.Resources>
+                <ComboBoxItem Tag="Да, курьер свободен." Name="{Binding }"/>
+                <ComboBoxItem Tag="Нет, курьер занят." Name="{Binding }" />
+            </ComboBox>
+
+        </StackPanel>
+    </Grid>
+</Window>
