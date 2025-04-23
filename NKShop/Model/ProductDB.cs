@@ -1,0 +1,104 @@
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace NKShop.Model
+{
+    internal class ProductDB
+    {
+        DbConnection connection;
+
+        private ProductDB(DbConnection db)
+        {
+            this.connection = db;
+        }
+
+        public bool Insert(Product product)
+        {
+            bool result = false;
+            if (connection == null)
+                return result;
+
+            if (connection.OpenConnection())
+            {
+                MySqlCommand cmd = connection.CreateCommand("insert into `product` Values (0, @Quantity, @Title, @Price);select LAST_INSERT_ID();");
+
+                cmd.Parameters.Add(new MySqlParameter("Quantity", product.Quantity));
+                cmd.Parameters.Add(new MySqlParameter("Title", product.Title));
+                cmd.Parameters.Add(new MySqlParameter("Price", product.Price));
+                try
+                {
+                    int id = (int)(ulong)cmd.ExecuteScalar();
+                    if (id > 0)
+                    {
+                        MessageBox.Show(id.ToString());
+                        product.Id = id;
+                        result = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Запись не добавлена");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
+            return result;
+        }
+
+        internal List<Product> SelectAll()
+        {
+            List<Product> products = new List<Product>();
+            if (connection == null)
+                return products;
+
+            if (connection.OpenConnection())
+            {
+                var command = connection.CreateCommand("select `id`, `quantity`, `title`, `price` from `product` ");
+                try
+                {
+                    MySqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        int id = dr.GetInt32(0);
+
+                        string title = string.Empty;
+                        if (!dr.IsDBNull(1))
+                            title = dr.GetString("title");
+
+                        decimal price = 0;
+                        if (!dr.IsDBNull(2))
+                            price = dr.GetDecimal("price");
+
+                        int quantity = 0;
+                        if (!dr.IsDBNull(3))
+                            quantity = dr.GetInt32("quantity");
+
+                        products.Add(new Product
+                        {
+                            Id = id,
+                            Title = title,
+                            Price = price,
+                            Quantity = quantity,
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
+            return products;
+        }
+
+
+    }
+}
