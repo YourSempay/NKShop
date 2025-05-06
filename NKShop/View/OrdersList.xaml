@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NKShop.View"
+        xmlns:local="clr-namespace:NKShop"
+        xmlns:mvvm="clr-namespace:NKShop.VM"
+        DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
-        Title="Список активных заказов" Height="450" Width="800" Background="#FF847C7C">
+        Title="Список активных заказов" Height="470" Width="800" Background="#FF847C7C">
+    <Window.Resources>
+        <mvvm:OrderListMVVM x:Key="vm"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="350"/>
@@ -13,23 +18,23 @@
         </Grid.RowDefinitions>
 
 
-        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" SelectionChanged="ListView_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" Foreground="#FF020202" Width="750" Height="350" Margin="0, 10, 0, 0" Background="#FFDEDBDB">
+        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Orders}" Foreground="#FF020202" Width="750" Height="350" Margin="0, 10, 0, 0" Background="#FFDEDBDB">
             <ListView.ContextMenu >
                 <ContextMenu >
-                    <MenuItem Header="Активные заказы" Click="ListOrders"/>
+                    <MenuItem Header="Пометить заказ выполненным" />
                 </ContextMenu>
             </ListView.ContextMenu >
             <ListView.View >
                 <GridView>
-                    <GridViewColumn Header="Товары в заказе" DisplayMemberBinding="{Binding ProductInOrder}" Width="150" />
-                    <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding OrderWeight}" Width="150" />
-                    <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding DesignatedCourier}" Width="150" />
-                    <GridViewColumn Header="Координаты заказа" DisplayMemberBinding="{Binding OrderCoordinates}" Width="150" />
-                    <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding OrderIsReady}" Width="140" />
+                    <GridViewColumn Header="Товар в заказе" DisplayMemberBinding="{Binding ProductID}" Width="100" />
+                    <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding Quantity}" Width="130" />
+                    <GridViewColumn Header="Полная цена" DisplayMemberBinding="{Binding FullPrice}"  Width="100" />
+                    <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding Courier.FIO}" Width="140" />
+                    <GridViewColumn Header="Координаты заказа" DisplayMemberBinding="{Binding Coordinates}" Width="140" />
+                    <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding IsReadyText}" Width="130" />
                 </GridView>
             </ListView.View>
         </ListView>
-
 
         <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="20, 0, 0, 0" VerticalAlignment="Top">
             <Button Content="История заказов" MinHeight="40" Width="275" MinWidth="275" Margin="0, 20, 0, 0" FontSize="20" Background="White" >

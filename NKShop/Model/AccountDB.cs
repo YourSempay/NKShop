@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ namespace NKShop.Model
         {
             this.connection = db;
         }
+
 
         public bool Insert(Account account)
         {
@@ -94,6 +96,53 @@ namespace NKShop.Model
             return accounts;
         }
 
+        static AccountDB db;
+
+        public static AccountDB GetDb()
+        {
+            if (db == null)
+                db = new AccountDB(DbConnection.GetDbConnection());
+            return db;
+        }
+
+        internal List<Account> SelectLogin(string log, string pas)
+        {
+            List<Account> accounts = new List<Account>();
+            if (connection == null)
+                return accounts;
+
+            if (connection.OpenConnection())
+            {
+                var command = connection.CreateCommand($"SELECT * FROM account a WHERE '{log}' = a.login AND '{pas}' = a.password ");
+                try
+                {
+                    MySqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        string login = string.Empty;
+                        if (!dr.IsDBNull(1))
+                            login = dr.GetString("login");
+
+                        string password = string.Empty;
+                        if (!dr.IsDBNull(2))
+                            password = dr.GetString("password");
+
+
+                        accounts.Add(new Account
+                        {
+                            Login = login,
+                            Password = password,
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
+            return accounts;
+        }
 
     }
 }

@@ -56,8 +56,8 @@
                         <Setter Property="CornerRadius" Value="3"/>
                     </Style>
                 </ComboBox.Resources>
-                <ComboBoxItem Tag="Да, товар готов." Name="{Binding }"/>
-                <ComboBoxItem Tag="Нет, товар не готов." Name="{Binding }" />
+                <ComboBoxItem Tag="Да, товар готов." />
+                <ComboBoxItem Tag="Нет, товар не готов."/>
             </ComboBox>
 
         </StackPanel>

@@ -8,53 +8,42 @@ using System.Windows;
 using NKShop.Model;
 using NKShop.View;
 using NKShop.VM;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace NKShop.VM
 {
     internal class RegisterMVVM : BaseVM
     {
-        public CommandMvvm AddBook { get; set; }
-        public CommandMvvm RemoveBook { get; set; }
-        public CommandMvvm EditBook { get; set; }
-        public CommandMvvm UpdateBook { get; set; }
+        public CommandMvvm Login { get; set; }
+        public string LoginAcc { get; set; }
+        public string PasswordAcc { get; set; }
 
         public RegisterMVVM()
         {
-            SelectAll();
-
-            EditBook = new CommandMvvm(() =>
+            Login = new CommandMvvm(() =>
             {
-                new EditBooks(SelectedBook).ShowDialog();
-                SelectAll();
-            }, () => SelectedBook != null);
+                List<Account> accounts = AccountDB.GetDb().SelectLogin(LoginAcc, PasswordAcc); 
 
-            RemoveBook = new CommandMvvm(() =>
-            {
-                var bookvozvrat = MessageBox.Show("Вы уверены что хотите удалить кигу?", "Подтверждение", MessageBoxButton.YesNo);
-
-                if (bookvozvrat == MessageBoxResult.Yes)
+                if(accounts.Count > 0)
                 {
-                    BookDB.GetDb().Remove(SelectedBook);
-                }
-                SelectAll();
-            }, () => SelectedBook != null);
+                    OrdersList ol = new OrdersList();
+                    ol.Show();
+                    close?.Invoke();
+                } else MessageBox.Show("Логин или пароль не найден");
 
-            AddBook = new CommandMvvm(() =>
-            {
-                new EditBooks(new Book()).ShowDialog();
-                SelectAll();
-            }, () => true);
-
-            UpdateBook = new CommandMvvm(() =>
-            {
-                SelectAll();
-            }, () => true);
-
+            }, () => !string.IsNullOrWhiteSpace(LoginAcc) && !string.IsNullOrWhiteSpace(PasswordAcc));
+            // не позволяет нажать кнопку если нижнее условие не выполняется
         }
 
-        private void SelectAll()
+        Action close;
+        private string logins;
+
+        internal void SetClose(Action close)
         {
-            Books = new ObservableCollection<Book>(BookDB.GetDb().SelectAll());
+            this.close = close;
         }
+
+
+
     }
 }

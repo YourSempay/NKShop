@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        xmlns:local="clr-namespace:NKShop.View"
+        xmlns:local="clr-namespace:NKShop"
+        xmlns:mvvm="clr-namespace:NKShop.VM"
+        DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
         Title="Вход в учётную запись" Height="450" Width="800" Background="#FF847C7C" Foreground="White"  >
     <Window.Resources>
-        
+        <mvvm:RegisterMVVM x:Key="vm"/>
     </Window.Resources>
     
     <Grid>
@@ -33,7 +35,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="1" Grid.Row="2">
-            <Button Content="Войти" MinHeight="50" MinWidth="150" Margin="0, 25, 0, 0" FontSize="20" Background="White" >
+            <Button Content="Войти" MinHeight="50" MinWidth="150" Margin="0, 25, 0, 0" FontSize="20" Background="White" Command="{Binding Login}">
 
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -46,7 +48,7 @@
         <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
 
             <TextBlock Text="Логин" MinHeight="30" HorizontalAlignment="Center" FontSize="20" Foreground="White" />
-            <TextBox Text="" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
+            <TextBox MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" Text="{Binding LoginAcc, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
@@ -56,7 +58,7 @@
             
             
                 <TextBlock Text="Пароль" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
-            <TextBox Text="" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15">
+            <TextBox MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" Text="{Binding PasswordAcc, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
