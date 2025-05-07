@@ -117,10 +117,7 @@ namespace NKShop.Model
             return couriers;
         }
 
-
-        /*
-
-        internal bool Update(Author edit)
+        internal bool Update(Courier edit)
         {
             bool result = false;
             if (connection == null)
@@ -128,11 +125,13 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var mc = connection.CreateCommand($"update `author` set `first_name`=@first_name, `patronymic`=@patronymic, `last_name`=@last_name, `birthday`=@birthday where `id` = {edit.Id}");
+                var mc = connection.CreateCommand($"update `courier` set `pledge`=@pledge, `work_start`=@work_start, `quantity_product`=@quantity_product, `first_name`=@first_name, `last_name`=@last_name, `patronymic`=@patronymic  where `id` = {edit.Id}");
+                mc.Parameters.Add(new MySqlParameter("quantity_product", edit.QuantityProduct));
+                mc.Parameters.Add(new MySqlParameter("pledge", edit.Pledge));
+                mc.Parameters.Add(new MySqlParameter("work_start", edit.WorkStart));
                 mc.Parameters.Add(new MySqlParameter("first_name", edit.FirstName));
-                mc.Parameters.Add(new MySqlParameter("patronymic", edit.Patronymic));
                 mc.Parameters.Add(new MySqlParameter("last_name", edit.LastName));
-                mc.Parameters.Add(new MySqlParameter("birthday", edit.Birthday));
+                mc.Parameters.Add(new MySqlParameter("patronymic", edit.Patronymic));
 
                 try
                 {
@@ -148,39 +147,15 @@ namespace NKShop.Model
             return result;
         }
 
+        static CourierDB db;
 
-        internal bool Remove(Author remove)
-        {
-            bool result = false;
-            if (connection == null)
-                return result;
-
-            if (connection.OpenConnection())
-            {
-                var mc = connection.CreateCommand($"delete from `author` where `id` = {remove.Id}");
-                try
-                {
-                    mc.ExecuteNonQuery();
-                    result = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-            connection.CloseConnection();
-            return result;
-        }
-
-        static AuthorDB db;
-        public static AuthorDB GetDb()
+        public static CourierDB GetDb()
         {
             if (db == null)
-                db = new AuthorDB(DbConnection.GetDbConnection());
+                db = new CourierDB(DbConnection.GetDbConnection());
             return db;
         }
-
-        */
-
     }
+
+
 }

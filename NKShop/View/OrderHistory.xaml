@@ -3,24 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NKShop.View"
+        xmlns:local="clr-namespace:NKShop"
+        xmlns:mvvm="clr-namespace:NKShop.VM"
+        DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
-        Title="История заказов" Height="450" Width="800" Background="#FF847C7C">
+        Title="История заказов" Height="470" Width="800" Background="#FF847C7C">
+
+    <Window.Resources>
+        <mvvm:HistoryOrdersMVVM x:Key="vm"/>
+    </Window.Resources>
+    
     <Grid>
-        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding HisOrders}" SelectedItem="{Binding SelectedHisOrder}" Foreground="#FF020202" Width="750" Height="400" Background="#FFDEDBDB">
+        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Foreground="#FF020202" Width="750" Height="400" Background="#FFDEDBDB">
             <ListView.ContextMenu >
                 <ContextMenu >
-                    <MenuItem Header="Заказы в истории" />
+                    <MenuItem Header="Отметить заказ невыполненным" Command="{Binding OrderNotReady}"/>
                 </ContextMenu>
             </ListView.ContextMenu >
             <ListView.View >
                 <GridView>
-                    <GridViewColumn Header="Товар в заказе" DisplayMemberBinding="{Binding ProductInOrder}" Width="100" />
+                    <GridViewColumn Header="Товар в заказе" DisplayMemberBinding="{Binding Product.Title}" Width="100" />
                     <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding Quantity}" Width="130" />
                     <GridViewColumn Header="Полная цена" DisplayMemberBinding="{Binding FullPrice}"  Width="100" />
-                    <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding DesignatedCourier}" Width="140" />
+                    <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding Courier.FIO}" Width="140" />
                     <GridViewColumn Header="Координаты заказа" DisplayMemberBinding="{Binding Coordinates}" Width="140" />
-                    <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding OrderIsReady}" Width="130" />
+                    <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding IsReadyText}" Width="130" />
                 </GridView>
             </ListView.View>
         </ListView>

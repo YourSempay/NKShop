@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace NKShop.View
 {
     /// <summary>
-    /// Логика взаимодействия для OrdersList.xaml
+    /// Логика взаимодействия для PurposeCourier.xaml
     /// </summary>
-    public partial class OrdersList : Window
+    public partial class PurposeCourier : Window
     {
-        public OrdersList()
+        public PurposeCourier()
         {
             InitializeComponent();
         }

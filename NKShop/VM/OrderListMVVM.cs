@@ -14,6 +14,25 @@ namespace NKShop.VM
 {
     internal class OrderListMVVM : BaseVM
     {
+
+        private Order selectedorder;
+
+        public Order SelectedOrder
+        {
+            get => selectedorder;
+            set
+            {
+                selectedorder = value;
+                Signal();
+            }
+        }
+
+        public CommandMvvm OrderReady { get; set; }
+        public CommandMvvm CourierNew { get; set; }
+        public CommandMvvm ListCouriers { get; set; }
+        public CommandMvvm ListProducts { get; set; }
+        public CommandMvvm HistoryWindow { get; set; }
+
         private ObservableCollection<Order> orders = new();
 
         public ObservableCollection<Order> Orders
@@ -29,6 +48,51 @@ namespace NKShop.VM
         public OrderListMVVM()
         {
             SelectAll();
+
+            OrderReady = new CommandMvvm(() =>
+            {
+                var orderreturn = MessageBox.Show("Вы уверены что хотите пометить заказ готовым?", "Подтверждение", MessageBoxButton.YesNo);
+
+                if (orderreturn == MessageBoxResult.Yes)
+                {
+                    SelectedOrder.IsReady = true;
+
+                    OrderDB.GetDb().Update(SelectedOrder);
+                    SelectAll();
+                }
+
+
+                SelectAll();
+            }, () => SelectedOrder != null);
+
+            CourierNew = new CommandMvvm(() =>
+            {
+                PurposeCourier pc = new PurposeCourier();
+                pc.ShowDialog();
+                SelectAll();
+            }, () => SelectedOrder != null);
+
+            ListCouriers = new CommandMvvm(() =>
+            {
+                CourierList cl = new CourierList();
+                cl.ShowDialog();
+                SelectAll();
+            }, () => true);
+
+            ListProducts = new CommandMvvm(() =>
+            {
+                ProductsList pl = new ProductsList();
+                pl.ShowDialog();
+                SelectAll();
+            }, () => true);
+
+            HistoryWindow = new CommandMvvm(() =>
+            {
+                OrderHistory oh = new OrderHistory();
+                oh.ShowDialog();
+                SelectAll();
+            }, () => true);
+
         }
 
         private void SelectAll()
