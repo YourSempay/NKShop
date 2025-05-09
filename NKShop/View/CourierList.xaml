@@ -3,9 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NKShop.View"
+        xmlns:local="clr-namespace:NKShop"
+        xmlns:mvvm="clr-namespace:NKShop.VM"
+        DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
         Title="Список курьеров" Height="470" Width="800" Background="#FF847C7C">
+    <Window.Resources>
+        <mvvm:CourierListMVVM x:Key="vm"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="350"/>

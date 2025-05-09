@@ -25,11 +25,12 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                MySqlCommand cmd = connection.CreateCommand("insert into `product` Values (0, @Quantity, @Title, @Price);select LAST_INSERT_ID();");
+                MySqlCommand cmd = connection.CreateCommand("insert into `product` Values (0, @Quantity, @Title, @Price, @IsReady);select LAST_INSERT_ID();");
 
                 cmd.Parameters.Add(new MySqlParameter("Quantity", product.Quantity));
                 cmd.Parameters.Add(new MySqlParameter("Title", product.Title));
                 cmd.Parameters.Add(new MySqlParameter("Price", product.Price));
+                cmd.Parameters.Add(new MySqlParameter("IsReady", product.Price));
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
@@ -61,7 +62,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("select `id`, `quantity`, `title`, `price` from `product` ");
+                var command = connection.CreateCommand("select `id`, `quantity`, `title`, `price`, `is_ready`  from `product` ");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -81,12 +82,15 @@ namespace NKShop.Model
                         if (!dr.IsDBNull(3))
                             quantity = dr.GetInt32("quantity");
 
+                        bool is_ready = dr.GetBoolean("is_ready");
+
                         products.Add(new Product
                         {
                             Id = id,
                             Title = title,
                             Price = price,
                             Quantity = quantity,
+                            IsReady = is_ready,
                         });
                     }
                 }
@@ -98,6 +102,14 @@ namespace NKShop.Model
             connection.CloseConnection();
             return products;
         }
+        static ProductDB db;
+        public static ProductDB GetDb()
+        {
+            if (db == null)
+                db = new ProductDB(DbConnection.GetDbConnection());
+            return db;
+        }
+
 
 
     }

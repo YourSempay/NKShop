@@ -12,11 +12,8 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace NKShop.VM
 {
-    internal class PurposeCourierMVVM : BaseVM
+    internal class CourierListMVVM : BaseVM
     {
-
-        public CommandMvvm Save { get; set; }
-
         private Courier selectedcourier;
 
         public Courier SelectedCourier
@@ -28,18 +25,6 @@ namespace NKShop.VM
                 Signal();
             }
         }
-        private Order updateorder;
-
-        public Order UpdateOrder
-        {
-            get => updateorder;
-            set
-            {
-                updateorder = value;
-                Signal();
-            }
-        }
-
 
         private ObservableCollection<Courier> couriers = new();
 
@@ -53,26 +38,9 @@ namespace NKShop.VM
             }
         }
 
-        private void SelectAll()
+        public CourierListMVVM()
         {
-            Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAll());
+
         }
-
-       public PurposeCourierMVVM()
-        {
-            SelectAll();
-
-            Save = new CommandMvvm(() =>
-            {
-                /* ИЗМЕНИТЬ
-                UpdateOrder.CourierID = SelectedCourier.Id;
-
-                OrderDB.GetDb().Update(UpdateOrder);
-                SelectAll();
-                */
-
-            }, () => SelectedCourier != null);
-        }
-
     }
 }
