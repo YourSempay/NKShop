@@ -3,14 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:NKShop"
         xmlns:mvvm="clr-namespace:NKShop.VM"
         DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
         Title="Изменение информации о товаре" Height="450" Width="800" Background="#FF847C7C">
     <Window.Resources>
-        <mvvm:ProductListMVVM x:Key="vm"/>
+        <mvvm:ProductEditMVVM x:Key="vm"/>
     </Window.Resources>
+    
     <Grid>
 
 
@@ -31,7 +33,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="1" Grid.Row="2">
-            <Button Content="Изменить информацию" MinHeight="50" MinWidth="150" FontSize="20" Background="White" Margin="0, 35, 0, 0">
+            <Button Content="Изменить информацию" MinHeight="50" MinWidth="150" FontSize="20" Background="White" Margin="0, 35, 0, 0" Command="{Binding EditInfoProduct}">
 
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -45,7 +47,7 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Height="265">
 
             <TextBlock Text="Количество товара" MinHeight="30" HorizontalAlignment="Center" FontSize="20" Foreground="White" Margin="0, 70, 0, 0" />
-            <TextBox Text="" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
+            <TextBox Text="{Binding SelectedProduct.Quantity, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
@@ -55,14 +57,9 @@
 
 
             <TextBlock Text="Готовность товара к продаже" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
-            <ComboBox  MinHeight="30" MinWidth="250" Width="250" BorderBrush="#FF21201E"  Background="White" >
-                <ComboBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="3"/>
-                    </Style>
-                </ComboBox.Resources>
-                <ComboBoxItem Tag="Да, товар готов." />
-                <ComboBoxItem Tag="Нет, товар не готов."/>
+            <ComboBox  MinHeight="30" MinWidth="250" Width="250" BorderBrush="#FF21201E"  Background="White" SelectedItem="{Binding Ready}">
+                <sys:String>Товар готов</sys:String>
+                <sys:String>Товар не готов</sys:String>
             </ComboBox>
 
         </StackPanel>

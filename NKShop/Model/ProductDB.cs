@@ -30,7 +30,7 @@ namespace NKShop.Model
                 cmd.Parameters.Add(new MySqlParameter("Quantity", product.Quantity));
                 cmd.Parameters.Add(new MySqlParameter("Title", product.Title));
                 cmd.Parameters.Add(new MySqlParameter("Price", product.Price));
-                cmd.Parameters.Add(new MySqlParameter("IsReady", product.Price));
+                cmd.Parameters.Add(new MySqlParameter("IsReady", product.IsReadyProd));
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
@@ -90,7 +90,7 @@ namespace NKShop.Model
                             Title = title,
                             Price = price,
                             Quantity = quantity,
-                            IsReady = is_ready,
+                            IsReadyProd = is_ready,
                         });
                     }
                 }
@@ -102,6 +102,35 @@ namespace NKShop.Model
             connection.CloseConnection();
             return products;
         }
+
+        internal bool Update(Product edit)
+        {
+            bool result = false;
+            if (connection == null)
+                return result;
+
+            if (connection.OpenConnection())
+            {
+                var mc = connection.CreateCommand($"update `product` set `title`=@title, `quantity`=@quantity, `price`=@price, `is_ready`=@is_ready where `id` = {edit.Id}");
+                mc.Parameters.Add(new MySqlParameter("title", edit.Title));
+                mc.Parameters.Add(new MySqlParameter("quantity", edit.Quantity));
+                mc.Parameters.Add(new MySqlParameter("price", edit.Price));
+                mc.Parameters.Add(new MySqlParameter("is_ready", edit.IsReadyProd));
+
+                try
+                {
+                    mc.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
+            return result;
+        }
+
         static ProductDB db;
         public static ProductDB GetDb()
         {

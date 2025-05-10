@@ -15,7 +15,6 @@ namespace NKShop.VM
     internal class OrderListMVVM : BaseVM
     {
 
-
         private Order selectedorder;
 
         public Order SelectedOrder
@@ -77,15 +76,26 @@ namespace NKShop.VM
 
             OrderReady = new CommandMvvm(() =>
             {
-                var orderreturn = MessageBox.Show("Вы уверены что хотите пометить заказ готовым?", "Подтверждение", MessageBoxButton.YesNo);
-
-                if (orderreturn == MessageBoxResult.Yes)
+                if(SelectedOrder.CourierID != 1)
                 {
-                    SelectedOrder.IsReady = true;
+                    var orderreturn = MessageBox.Show("Вы уверены что хотите пометить заказ готовым?", "Подтверждение", MessageBoxButton.YesNo);
 
-                    OrderDB.GetDb().Update(SelectedOrder);
-                    SelectAll();
-                }
+                    if (orderreturn == MessageBoxResult.Yes)
+                    {
+                        SelectedOrder.IsReady = true;
+                        if (SelectedOrder.CourierID == 1)
+                        {
+                            SelectedOrder.Courier.QuantityProduct = 0;
+                        }
+                        else SelectedOrder.Courier.QuantityProduct += SelectedOrder.Quantity;
+
+                        OrderDB.GetDb().Update(SelectedOrder);
+                        CourierDB.GetDb().Update(SelectedOrder.Courier);
+                        SelectAll();
+                    }
+                } else MessageBox.Show("Курьер обязательно должен быть назначен!", "Ошибка!");
+
+
 
 
                 SelectAll();
@@ -119,13 +129,6 @@ namespace NKShop.VM
                 SelectAll();
             }, () => true);
 
-            Save = new CommandMvvm(() =>
-            {
-                SelectedOrder.CourierID = SelectedCourier.Id;
-                OrderDB.GetDb().Update(SelectedOrder);
-                SelectAll();
-
-            }, () => SelectedCourier != null);
 
         }
 

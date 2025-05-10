@@ -45,7 +45,7 @@ namespace NKShop.VM
 
             ProductEditt = new CommandMvvm(() =>
             {
-                ProductsEdit pe = new ProductsEdit();
+                ProductsEdit pe = new ProductsEdit(SelectedProduct);
                 pe.ShowDialog();
                 SelectAll();
 

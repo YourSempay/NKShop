@@ -26,6 +26,7 @@ namespace NKShop.VM
                 Signal();
             }
         }
+
         public CommandMvvm Save { get; set; }
 
         private Courier selectedcourier;
@@ -39,19 +40,6 @@ namespace NKShop.VM
                 Signal();
             }
         }
-
-        private Order updateorder;
-
-        public Order UpdateOrder
-        {
-            get => updateorder;
-            set
-            {
-                updateorder = value;
-                Signal();
-            }
-        }
-
 
         private ObservableCollection<Courier> couriers = new();
 
@@ -76,17 +64,23 @@ namespace NKShop.VM
 
             Save = new CommandMvvm(() =>
             {
-                UpdateOrder.CourierID = SelectedCourier.Id;
-
-                OrderDB.GetDb().Update(UpdateOrder);
-                SelectAll();
+                SelectedOrder.CourierID = SelectedCourier.Id;
+                OrderDB.GetDb().Update(SelectedOrder);
+                close?.Invoke();
 
             }, () => SelectedCourier != null);
+
+
+        }
+
+        Action close;
+        internal void SetClose(Action close)
+        {
+            this.close = close;
         }
         public void SelOrder(Order SelOr)
         {
-            Order SelectedOrder = SelOr;
-            SelectAll();
+            SelectedOrder = SelOr;
         }
     }
 }

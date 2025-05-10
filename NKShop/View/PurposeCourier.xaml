@@ -10,7 +10,7 @@
         Title="Назначение курьера" Height="250" Width="300" Background="#FF847C7C" Foreground="White">
 
     <Window.Resources>
-        <mvvm:OrderListMVVM x:Key="vm"/>
+        <mvvm:PurposeCourierMVVM x:Key="vm"/>
     </Window.Resources>
 
     <StackPanel VerticalAlignment="Center">

@@ -49,10 +49,22 @@ namespace NKShop.VM
 
                 if (orderreturn == MessageBoxResult.Yes)
                 {
+                    int sel = SelectedOrder.CourierID;
+                    if (SelectedOrder.CourierID == 1)
+                    {
+                        SelectedOrder.Courier.QuantityProduct = 0;
+                    }
+                    else if(SelectedOrder.Courier.QuantityProduct - SelectedOrder.Quantity < 0)
+                    {
+                        SelectedOrder.Courier.QuantityProduct = 0;
+                    } else SelectedOrder.Courier.QuantityProduct -= SelectedOrder.Quantity;
+
                     SelectedOrder.IsReady = false;
                     SelectedOrder.CourierID = 1;
 
+
                     OrderDB.GetDb().Update(SelectedOrder);
+                    CourierDB.GetDb().Update(SelectedOrder.Courier);
                     SelectAllHis();
                 }
 

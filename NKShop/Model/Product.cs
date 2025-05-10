@@ -12,13 +12,28 @@ namespace NKShop.Model
         public string Title { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public bool IsReady { get; set; }
+        public bool IsReadyProd { get; set; }
+
+        public string TitleBlock
+        {
+            get
+            {
+                if (IsReadyProd == true)
+                {
+                    return Title;
+                }
+                else
+                {
+                    return "Товар в блоке";
+                }
+            }
+        }
 
         public string IsReadyText
         {
             get
             {
-                if (IsReady == false)
+                if (IsReadyProd == false)
                     return "    х Не продаётся х ";
                 else return "    ✔ Продаётся ✔ ";
             }

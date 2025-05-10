@@ -24,7 +24,8 @@ namespace NKShop.View
         public PurposeCourier(Order SelectedOrder)
         {
             InitializeComponent();
-           // ((PurposeCourier)this.DataContext).SelOrder(SelectedOrder);
+            ((PurposeCourierMVVM)this.DataContext).SetClose(Close);
+            ((PurposeCourierMVVM)this.DataContext).SelOrder(SelectedOrder);
         }
     }
 }

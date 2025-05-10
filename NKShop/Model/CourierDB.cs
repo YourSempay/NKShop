@@ -64,6 +64,67 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
+                var command = connection.CreateCommand($"select `id`, `first_name`, `pledge`, `work_start`, `quantity_product`, `last_name`, `patronymic` from `courier`");
+                try
+                {
+                    MySqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        int id = dr.GetInt32(0);
+
+                        string first_name = string.Empty;
+                        if (!dr.IsDBNull(1))
+                            first_name = dr.GetString("first_name");
+
+                        int pledge = 0;
+                        if (!dr.IsDBNull(2))
+                            pledge = dr.GetInt32("pledge");
+
+                        int quantity_product = 0;
+                        if (!dr.IsDBNull(3))
+                            quantity_product = dr.GetInt32("quantity_product");
+
+                        DateTime work_start = new DateTime();
+                        if (!dr.IsDBNull(4))
+                            work_start = dr.GetDateTime("work_start");
+
+                        string last_name = string.Empty;
+                        if (!dr.IsDBNull(5))
+                            last_name = dr.GetString("last_name");
+
+                        string patronymic = string.Empty;
+                        if (!dr.IsDBNull(6))
+                            patronymic = dr.GetString("patronymic");
+
+                        couriers.Add(new Courier
+                        {
+                            Id = id,
+                            Pledge = pledge,
+                            QuantityProduct = quantity_product,
+                            WorkStart = work_start,
+                            LastName = last_name,
+                            Patronymic = patronymic,
+                            FirstName = first_name,
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
+            return couriers;
+        }
+
+        internal List<Courier> SelectAllProtect()
+        {
+            List<Courier> couriers = new List<Courier>();
+            if (connection == null)
+                return couriers;
+
+            if (connection.OpenConnection())
+            {
                 var command = connection.CreateCommand($"select `id`, `first_name`, `pledge`, `work_start`, `quantity_product`, `last_name`, `patronymic` from `courier` where `id` > {1} ");
                 try
                 {

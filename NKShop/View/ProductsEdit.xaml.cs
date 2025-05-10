@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using NKShop.Model;
+using NKShop.VM;
 
 namespace NKShop.View
 {
@@ -19,9 +21,11 @@ namespace NKShop.View
     /// </summary>
     public partial class ProductsEdit : Window
     {
-        public ProductsEdit()
+        public ProductsEdit(Product SelectedProduct)
         {
             InitializeComponent();
+            ((ProductEditMVVM)this.DataContext).SetClose(Close);
+            ((ProductEditMVVM)this.DataContext).SelProd(SelectedProduct);
         }
     }
 }
