@@ -15,6 +15,7 @@ namespace NKShop.VM
     internal class OrderListMVVM : BaseVM
     {
 
+
         private Order selectedorder;
 
         public Order SelectedOrder
@@ -23,6 +24,19 @@ namespace NKShop.VM
             set
             {
                 selectedorder = value;
+                Signal();
+            }
+        }
+        public CommandMvvm Save { get; set; }
+
+        private Courier selectedcourier;
+
+        public Courier SelectedCourier
+        {
+            get => selectedcourier;
+            set
+            {
+                selectedcourier = value;
                 Signal();
             }
         }
@@ -41,6 +55,18 @@ namespace NKShop.VM
             set
             {
                 orders = value;
+                Signal();
+            }
+        }
+
+        private ObservableCollection<Courier> couriers = new();
+
+        public ObservableCollection<Courier> Couriers
+        {
+            get => couriers;
+            set
+            {
+                couriers = value;
                 Signal();
             }
         }
@@ -67,7 +93,7 @@ namespace NKShop.VM
 
             CourierNew = new CommandMvvm(() =>
             {
-                PurposeCourier pc = new PurposeCourier();
+                PurposeCourier pc = new PurposeCourier(SelectedOrder);
                 pc.ShowDialog();
                 SelectAll();
             }, () => SelectedOrder != null);
@@ -93,11 +119,20 @@ namespace NKShop.VM
                 SelectAll();
             }, () => true);
 
+            Save = new CommandMvvm(() =>
+            {
+                SelectedOrder.CourierID = SelectedCourier.Id;
+                OrderDB.GetDb().Update(SelectedOrder);
+                SelectAll();
+
+            }, () => SelectedCourier != null);
+
         }
 
         private void SelectAll()
         {
             Orders = new ObservableCollection<Order>(OrderDB.GetDb().SelectAll());
+            Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAll());
         }
 
     }

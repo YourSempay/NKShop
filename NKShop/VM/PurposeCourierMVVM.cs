@@ -15,6 +15,17 @@ namespace NKShop.VM
     internal class PurposeCourierMVVM : BaseVM
     {
 
+        private Order selectedorder = new();
+
+        public Order SelectedOrder
+        {
+            get => selectedorder;
+            set
+            {
+                selectedorder = value;
+                Signal();
+            }
+        }
         public CommandMvvm Save { get; set; }
 
         private Courier selectedcourier;
@@ -28,6 +39,7 @@ namespace NKShop.VM
                 Signal();
             }
         }
+
         private Order updateorder;
 
         public Order UpdateOrder
@@ -64,15 +76,17 @@ namespace NKShop.VM
 
             Save = new CommandMvvm(() =>
             {
-                /* ИЗМЕНИТЬ
                 UpdateOrder.CourierID = SelectedCourier.Id;
 
                 OrderDB.GetDb().Update(UpdateOrder);
                 SelectAll();
-                */
 
             }, () => SelectedCourier != null);
         }
-
+        public void SelOrder(Order SelOr)
+        {
+            Order SelectedOrder = SelOr;
+            SelectAll();
+        }
     }
 }

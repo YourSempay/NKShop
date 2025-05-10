@@ -64,7 +64,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("select `id`, `first_name`, `pledge`, `work_start`, `quantity_product`, `last_name`, `patronymic` from `courier` ");
+                var command = connection.CreateCommand($"select `id`, `first_name`, `pledge`, `work_start`, `quantity_product`, `last_name`, `patronymic` from `courier` where `id` > {1} ");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
