@@ -38,9 +38,28 @@ namespace NKShop.VM
             }
         }
 
+        public CommandMvvm AddCourier { get; set; }
+        public CommandMvvm EditCourier { get; set; }
+        public CommandMvvm DeleteCourier { get; set; }
+
+
         public CourierListMVVM()
         {
+            SelectAll();
 
+            AddCourier = new CommandMvvm(() =>
+            {
+                CourierAdd ca = new CourierAdd(SelectedCourier);
+                ca.ShowDialog();
+                SelectAll();
+            }, () => true);
         }
+
+        private void SelectAll()
+        {
+            Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAllProtect());
+        }
+
+
     }
 }

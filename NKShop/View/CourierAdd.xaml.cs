@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using NKShop.Model;
+using NKShop.VM;
 
 namespace NKShop.View
 {
@@ -19,9 +21,13 @@ namespace NKShop.View
     /// </summary>
     public partial class CourierAdd : Window
     {
-        public CourierAdd()
+        public CourierAdd(Courier Addcourier)
         {
             InitializeComponent();
+
+            ((CourierAddMVVM)this.DataContext).SetClose(Close);
+            ((CourierAddMVVM)this.DataContext).SelCourier(Addcourier);
+
         }
     }
 }

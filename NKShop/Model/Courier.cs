@@ -18,6 +18,19 @@ namespace NKShop.Model
         public DateTime WorkStart { get; set; }
         public int QuantityProduct { get; set; }
 
+        public bool CourierIsFree { get; set; }
+
+        public string CourierIsFreeToSting
+        {
+            get
+            {
+                if (CourierIsFree == false)
+                    return "    х Курьер на заказе х ";
+                else return "    ✔ Курьер свободен ✔ ";
+            }
+        }
+
+
         public string FIO
         {
             get

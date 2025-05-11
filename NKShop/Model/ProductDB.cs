@@ -30,7 +30,7 @@ namespace NKShop.Model
                 cmd.Parameters.Add(new MySqlParameter("Quantity", product.Quantity));
                 cmd.Parameters.Add(new MySqlParameter("Title", product.Title));
                 cmd.Parameters.Add(new MySqlParameter("Price", product.Price));
-                cmd.Parameters.Add(new MySqlParameter("IsReady", product.IsReadyProd));
+                cmd.Parameters.Add(new MySqlParameter("IsReadyProd", product.IsReadyProd));
                 try
                 {
                     int id = (int)(ulong)cmd.ExecuteScalar();
@@ -62,7 +62,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"select `id`, `quantity`, `title`, `price`, `is_ready`  from `product`  WHERE `id` > {1}");
+                var command = connection.CreateCommand($"select `id`, `quantity`, `title`, `price`, `is_ready_prod`  from `product`  WHERE `id` > {1}");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -82,7 +82,7 @@ namespace NKShop.Model
                         if (!dr.IsDBNull(3))
                             quantity = dr.GetInt32("quantity");
 
-                        bool is_ready = dr.GetBoolean("is_ready");
+                        bool is_ready_prod = dr.GetBoolean("is_ready_prod");
 
                         products.Add(new Product
                         {
@@ -90,7 +90,7 @@ namespace NKShop.Model
                             Title = title,
                             Price = price,
                             Quantity = quantity,
-                            IsReadyProd = is_ready,
+                            IsReadyProd = is_ready_prod,
                         });
                     }
                 }
@@ -111,11 +111,11 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var mc = connection.CreateCommand($"update `product` set `title`=@title, `quantity`=@quantity, `price`=@price, `is_ready`=@is_ready where `id` = {edit.Id}");
+                var mc = connection.CreateCommand($"update `product` set `title`=@title, `quantity`=@quantity, `price`=@price, `is_ready_prod`=@is_ready_prod where `id` = {edit.Id}");
                 mc.Parameters.Add(new MySqlParameter("title", edit.Title));
                 mc.Parameters.Add(new MySqlParameter("quantity", edit.Quantity));
                 mc.Parameters.Add(new MySqlParameter("price", edit.Price));
-                mc.Parameters.Add(new MySqlParameter("is_ready", edit.IsReadyProd));
+                mc.Parameters.Add(new MySqlParameter("is_ready_prod", edit.IsReadyProd));
 
                 try
                 {

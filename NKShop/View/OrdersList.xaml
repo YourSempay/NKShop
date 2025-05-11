@@ -28,8 +28,8 @@
                 </ContextMenu>
             </ListView.ContextMenu >
             <ListView.View >
-                <GridView>
-                    <GridViewColumn Header="Товар в заказе" DisplayMemberBinding="{Binding Product.Title}" Width="100" />
+                <GridView >
+                    <GridViewColumn Header="Товар в заказе" DisplayMemberBinding="{Binding Product.Title}" Width="100"/>
                     <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding Quantity}" Width="130" />
                     <GridViewColumn Header="Полная цена" DisplayMemberBinding="{Binding FullPrice}"  Width="100" />
                     <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding Courier.FIO}" Width="140" />

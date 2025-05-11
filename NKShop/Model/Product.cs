@@ -18,14 +18,9 @@ namespace NKShop.Model
         {
             get
             {
-                if (IsReadyProd == true)
-                {
-                    return Title;
-                }
-                else
-                {
+                if (IsReadyProd == false)
                     return "Товар в блоке";
-                }
+                else return Title;
             }
         }
 
