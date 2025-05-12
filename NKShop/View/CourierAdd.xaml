@@ -45,7 +45,7 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Center" >
 
             <TextBlock Text="Фамилия Курьера" MinHeight="30" HorizontalAlignment="Center" FontSize="20" Foreground="White" />
-            <TextBox Text="{Binding SelectedCourier.LastName, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
+            <TextBox Text="{Binding CourierLastName, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
@@ -54,7 +54,7 @@
             </TextBox>
 
             <TextBlock Text="Имя Курьера" MinHeight="30" HorizontalAlignment="Center" FontSize="20" Foreground="White" Margin="0, 5, 0, 0" />
-            <TextBox Text="{Binding SelectedCourier.FirstName, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
+            <TextBox Text="{Binding CourierFirstName, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
@@ -63,7 +63,7 @@
             </TextBox>
 
             <TextBlock Text="Отчество Курьера" MinHeight="30" HorizontalAlignment="Center" FontSize="20" Foreground="White" Margin="0, 10, 0, 0" />
-            <TextBox Text="{Binding SelectedCourier.Patronymic, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
+            <TextBox Text="{Binding CourierPatronymic, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15" >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
@@ -73,7 +73,7 @@
 
 
             <TextBlock Text="Внесённый залог" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
-            <TextBox Text="{Binding SelectedCourier.Pledge, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15">
+            <TextBox Text="{Binding CourierPledge, UpdateSourceTrigger=PropertyChanged}" MinHeight="30" MinWidth="400" BorderBrush="#FF21201E" FontSize="15">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>
@@ -82,7 +82,7 @@
             </TextBox>
 
             <TextBlock Text="Дата начала работы" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
-            <DatePicker Foreground="Black" Background="White" MinHeight="30" BorderBrush="#FF21201E" FontSize="15" SelectedDate="{Binding SelectedCourier.WorkStart, UpdateSourceTrigger=PropertyChanged}">
+            <DatePicker Foreground="Black" Background="White" MinHeight="30" BorderBrush="#FF21201E" FontSize="15" SelectedDate="{Binding CourierWorkStart, UpdateSourceTrigger=PropertyChanged}">
                 <DatePicker.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="3"/>

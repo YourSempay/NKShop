@@ -56,6 +56,24 @@ namespace NKShop.VM
                 ca.ShowDialog();
                 SelectAll();
             }, () => true);
+
+            EditCourier = new CommandMvvm(() =>
+            {
+                CourierAdd ca = new CourierAdd(SelectedCourier);
+                ca.ShowDialog();
+                SelectAll();
+            }, () => SelectedCourier != null);
+
+            DeleteCourier = new CommandMvvm(() =>
+            { 
+                var couriervozvrat = MessageBox.Show("Вы уверены что хотите удалить курьера?", "Подтверждение", MessageBoxButton.YesNo);
+
+                if (couriervozvrat == MessageBoxResult.Yes)
+                {
+                    CourierDB.GetDb().Remove(SelectedCourier);
+                    SelectAll();
+                }
+            }, () => SelectedCourier != null);
         }
 
         private void SelectAll()

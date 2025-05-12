@@ -56,6 +56,30 @@ namespace NKShop.Model
             return result;
         }
 
+        internal bool Remove(Courier remove)
+        {
+            bool result = false;
+            if (connection == null)
+                return result;
+
+            if (connection.OpenConnection())
+            {
+                var mc = connection.CreateCommand($"delete from `courier` where `id` = {remove.Id}");
+                try
+                {
+                    MessageBox.Show("Курьер успешно удалён!");
+                    mc.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            connection.CloseConnection();
+            return result;
+        }
+
         internal List<Courier> SelectAll()
         {
             List<Courier> couriers = new List<Courier>();
@@ -199,6 +223,7 @@ namespace NKShop.Model
 
                 try
                 {
+                    MessageBox.Show("Курьер успешно изменён!");
                     mc.ExecuteNonQuery();
                     result = true;
                 }

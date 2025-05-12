@@ -105,13 +105,32 @@ namespace NKShop.VM
                 {
                     if (SelectedCourier.Id == 0)
                     {
+                        SelectedCourier.WorkStart = CourierWorkStart;
+                        SelectedCourier.Pledge = CourierPledge;
+                        SelectedCourier.FirstName = CourierFirstName;
+                        SelectedCourier.LastName = CourierLastName;
+                        SelectedCourier.Patronymic = CourierPatronymic;
+                        SelectedCourier.QuantityProduct = 0;
                         CourierDB.GetDb().Insert(SelectedCourier);
-                    } else CourierDB.GetDb().Update(SelectedCourier);
+                    } else
+                    {
+                        SelectedCourier.WorkStart = CourierWorkStart;
+                        SelectedCourier.Pledge = CourierPledge;
+                        SelectedCourier.FirstName = CourierFirstName;
+                        SelectedCourier.LastName = CourierLastName;
+                        SelectedCourier.Patronymic = CourierPatronymic;
+                        CourierDB.GetDb().Update(SelectedCourier);
+                    }
 
                     close?.Invoke();
                 }
 
-            }, () => true);
+            }, () => 
+            CourierWorkStart.Year > 2000 &&
+            CourierPledge > 5000 &&
+            !string.IsNullOrWhiteSpace(CourierFirstName) &&
+            !string.IsNullOrWhiteSpace(CourierLastName) &&
+            !string.IsNullOrWhiteSpace(CourierPatronymic));
 
         }
 
@@ -128,9 +147,17 @@ namespace NKShop.VM
             if (SelectedCourier.Id == 0)
             {
                 ButtonAdd = "Добавить курьера";
-                SelectedCourier.WorkStart = DateTime.Today;
-            } else ButtonAdd = "Изменить информацию о курьере";
-
+                CourierWorkStart = DateTime.Today;
+            }
+            else
+            {
+                ButtonAdd = "Изменить информацию о курьере";
+                CourierWorkStart = SelectedCourier.WorkStart;
+                CourierPledge = SelectedCourier.Pledge;
+                CourierFirstName = SelectedCourier.FirstName;
+                CourierLastName = SelectedCourier.LastName;
+                CourierPatronymic = SelectedCourier.Patronymic;
+            }
         }
 
 
