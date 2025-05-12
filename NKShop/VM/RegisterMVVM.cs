@@ -32,11 +32,9 @@ namespace NKShop.VM
                 } else MessageBox.Show("Логин или пароль не найден");
 
             }, () => !string.IsNullOrWhiteSpace(LoginAcc) && !string.IsNullOrWhiteSpace(PasswordAcc));
-            // не позволяет нажать кнопку если нижнее условие не выполняется
         }
 
         Action close;
-        private string logins;
 
         internal void SetClose(Action close)
         {

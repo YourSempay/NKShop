@@ -8,7 +8,7 @@
         xmlns:mvvm="clr-namespace:NKShop.VM"
         DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
-        Title="Вход в учётную запись" Height="450" Width="800" Background="#FF847C7C" Foreground="White"  >
+        Title="Вход в учётную запись" Height="470" Width="800" MaxHeight="470" MaxWidth="800" MinHeight="470" MinWidth="800" Background="#FF847C7C" Foreground="White"  >
     <Window.Resources>
         <mvvm:RegisterMVVM x:Key="vm"/>
     </Window.Resources>

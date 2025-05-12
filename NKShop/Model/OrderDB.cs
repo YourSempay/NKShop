@@ -64,7 +64,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"SELECT o.`id`, o.`quantity_prod`, o.`full_price`, o.`coordinates`, o.`courier_id`, o.`product_id`, o.`is_ready`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, p.`title`, p.`quantity`, p.`price` FROM `order` o JOIN `courier` c ON o.`courier_id` = c.`id` JOIN `product` p ON o.`product_id` = p.`id` WHERE o.`is_ready` = {0} ");
+                var command = connection.CreateCommand($"SELECT o.`id`, o.`quantity_prod`, o.`full_price`, o.`coordinates`, o.`courier_id`, o.`product_id`, o.`is_ready`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, p.`title`, p.`quantity`, p.`price`, p.`is_ready_prod` FROM `order` o JOIN `courier` c ON o.`courier_id` = c.`id` JOIN `product` p ON o.`product_id` = p.`id` WHERE o.`is_ready` = {0} ");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -127,11 +127,15 @@ namespace NKShop.Model
 
                         bool is_ready = dr.GetBoolean("is_ready");
 
+                        bool is_ready_prod = dr.GetBoolean("is_ready_prod");
+
                         Product product = new Product
                         {
+                            Id = product_id,
                             Title = title,
                             Quantity = quantity,
                             Price = price,
+                            IsReadyProd = is_ready_prod,
                         };
 
                         Courier courier = new Courier
@@ -177,7 +181,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"SELECT o.`id`, o.`quantity_prod`, o.`full_price`, o.`coordinates`, o.`courier_id`, o.`product_id`, o.`is_ready`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, p.`title`, p.`quantity`, p.`price` FROM `order` o JOIN `courier` c ON o.`courier_id` = c.`id` JOIN `product` p ON o.`product_id` = p.`id` WHERE o.`is_ready` = {1}");
+                var command = connection.CreateCommand($"SELECT o.`id`, o.`quantity_prod`, o.`full_price`, o.`coordinates`, o.`courier_id`, o.`product_id`, o.`is_ready`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, p.`title`, p.`quantity`, p.`price`, p.`is_ready_prod` FROM `order` o JOIN `courier` c ON o.`courier_id` = c.`id` JOIN `product` p ON o.`product_id` = p.`id` WHERE o.`is_ready` = {1}");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -240,11 +244,15 @@ namespace NKShop.Model
 
                         bool is_ready = dr.GetBoolean("is_ready");
 
+                        bool is_ready_prod = dr.GetBoolean("is_ready_prod");
+
                         Product product = new Product
                         {
+                            Id = product_id,
                             Title = title,
                             Quantity = quantity,
                             Price = price,
+                            IsReadyProd = is_ready_prod,
                         };
 
                         Courier courier = new Courier

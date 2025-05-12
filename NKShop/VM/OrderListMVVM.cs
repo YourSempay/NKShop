@@ -76,24 +76,34 @@ namespace NKShop.VM
 
             OrderReady = new CommandMvvm(() =>
             {
-                if(SelectedOrder.CourierID != 1)
+                if (SelectedOrder.ProductID != 1)
                 {
-                    var orderreturn = MessageBox.Show("Вы уверены что хотите пометить заказ готовым?", "Подтверждение", MessageBoxButton.YesNo);
-
-                    if (orderreturn == MessageBoxResult.Yes)
-                    {
-                        SelectedOrder.IsReady = true;
-                        if (SelectedOrder.CourierID == 1)
+                    if (SelectedOrder.Product.TitleBlock != "Товар в блоке")
+                    { 
+                        if(SelectedOrder.CourierID != 1)
                         {
-                            SelectedOrder.Courier.QuantityProduct = 0;
-                        }
-                        else SelectedOrder.Courier.QuantityProduct += SelectedOrder.Quantity;
+                            var orderreturn = MessageBox.Show("Вы уверены что хотите пометить заказ готовым?", "Подтверждение", MessageBoxButton.YesNo);
 
-                        OrderDB.GetDb().Update(SelectedOrder);
-                        CourierDB.GetDb().Update(SelectedOrder.Courier);
-                        SelectAll();
-                    }
-                } else MessageBox.Show("Курьер обязательно должен быть назначен!", "Ошибка!");
+                            if (orderreturn == MessageBoxResult.Yes)
+                            {
+                                SelectedOrder.IsReady = true;
+                                if (SelectedOrder.CourierID == 1)
+                                {
+                                    SelectedOrder.Courier.QuantityProduct = 0;
+                                }
+                                else SelectedOrder.Courier.QuantityProduct += SelectedOrder.Quantity;
+
+                                SelectedOrder.Product.Quantity -= SelectedOrder.Quantity;
+                                OrderDB.GetDb().Update(SelectedOrder);
+                                CourierDB.GetDb().Update(SelectedOrder.Courier);
+                                ProductDB.GetDb().Update(SelectedOrder.Product);
+                                SelectAll();
+                            }
+                        } else MessageBox.Show("Курьер обязательно должен быть назначен!", "Ошибка!");
+                    } else MessageBox.Show("Товар заблокирован. Для начала разблокируйте его!", "Ошибка!");
+                } else MessageBox.Show("Товар в заказ не назначен. Заказ не может быть выполнен!", "Ошибка!");
+                    
+
 
 
 
@@ -103,8 +113,16 @@ namespace NKShop.VM
 
             CourierNew = new CommandMvvm(() =>
             {
-                PurposeCourier pc = new PurposeCourier(SelectedOrder);
-                pc.ShowDialog();
+                if (SelectedOrder.ProductID != 1)
+                {
+                    if (SelectedOrder.Product.TitleBlock != "Товар в блоке")
+                    {
+                        PurposeCourier pc = new PurposeCourier(SelectedOrder);
+                        pc.ShowDialog();
+                        SelectAll();
+                    }
+                    else MessageBox.Show("Товар заблокирован. Для начала разблокируйте его!", "Ошибка!");
+                } else MessageBox.Show("Товар в заказ не назначен. Курьер не может выполнить этот заказ!", "Ошибка!");
                 SelectAll();
             }, () => SelectedOrder != null);
 

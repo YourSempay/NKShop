@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NKShop.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,6 @@ namespace NKShop.Model
 {
     public class Courier
     {
-        private string fio;
-
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -24,9 +23,15 @@ namespace NKShop.Model
         {
             get
             {
-                if (CourierIsFree == false)
-                    return "    х Курьер на заказе х ";
-                else return "    ✔ Курьер свободен ✔ ";
+                if (Id != 1 && CourierIsFree == false)
+                {
+                    return "\t    ✔";
+                }
+                else if (Id != 1 && CourierIsFree == true)
+                {
+                    return "\t      х";
+                }
+                else return "Ошибка";
             }
         }
 

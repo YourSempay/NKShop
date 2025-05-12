@@ -7,7 +7,7 @@
         xmlns:mvvm="clr-namespace:NKShop.VM"
         DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
-        Title="Список курьеров" Height="470" Width="800" Background="#FF847C7C">
+        Title="Список курьеров" Height="470" Width="800" MaxHeight="470" MaxWidth="800" MinHeight="470" MinWidth="800" Background="#FF847C7C">
     <Window.Resources>
         <mvvm:CourierListMVVM x:Key="vm"/>
     </Window.Resources>
@@ -26,7 +26,7 @@
                     <GridViewColumn Header="Внесённый залог" DisplayMemberBinding="{Binding Pledge}" Width="150" />
                     <GridViewColumn Header="Дата начала работы" DisplayMemberBinding="{Binding WorkStart}" Width="150" />
                     <GridViewColumn Header="Товара доставлено (г)" DisplayMemberBinding="{Binding QuantityProduct}" Width="150" />
-                    <GridViewColumn Header="Свободен ли" DisplayMemberBinding="{Binding CourierIsFreeToSting}" Width="140" />
+                    <GridViewColumn Header="Свободен ли" DisplayMemberBinding="{Binding CourierIsFreeToSting}" Width="140"/>
                 </GridView>
             </ListView.View>
         </ListView>

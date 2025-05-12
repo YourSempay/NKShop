@@ -16,19 +16,17 @@ namespace NKShop.VM
     {
         public CommandMvvm AddCourier { get; set; }
 
-        /*
+        private string buttonadd;
+
         public string ButtonAdd
         {
-            get
+            get => buttonadd;
+            set
             {
-                if (SelectedCourier.FIO == null)
-                    return "Добавить курьера";
-                else return "Изменить информацию о курьере";
+                buttonadd = value;
+                Signal();
             }
         }
-        */
-
-        string ButtonAdd = "1";
 
         private string courierfirstname;
         public string CourierFirstName
@@ -127,6 +125,14 @@ namespace NKShop.VM
         public void SelCourier(Courier SelCOurier)
         {
             SelectedCourier = SelCOurier;
+            if (SelectedCourier.Id == 0)
+            {
+                ButtonAdd = "Добавить курьера";
+                SelectedCourier.WorkStart = DateTime.Today;
+            } else ButtonAdd = "Изменить информацию о курьере";
+
         }
+
+
     }
 }

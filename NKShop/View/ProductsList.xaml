@@ -7,7 +7,7 @@
         xmlns:mvvm="clr-namespace:NKShop.VM"
         DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
-        Title="Список товаров" Height="470" Width="800" Background="#FF847C7C">
+        Title="Список товаров" Height="470" Width="800" MaxHeight="470" MaxWidth="800" MinHeight="470" MinWidth="800" Background="#FF847C7C">
     <Window.Resources>
         <mvvm:ProductListMVVM x:Key="vm"/>
     </Window.Resources>

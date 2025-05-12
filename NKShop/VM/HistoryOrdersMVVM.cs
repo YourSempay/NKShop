@@ -61,10 +61,11 @@ namespace NKShop.VM
 
                     SelectedOrder.IsReady = false;
                     SelectedOrder.CourierID = 1;
-
+                    SelectedOrder.Product.Quantity += SelectedOrder.Quantity;
 
                     OrderDB.GetDb().Update(SelectedOrder);
                     CourierDB.GetDb().Update(SelectedOrder.Courier);
+                    ProductDB.GetDb().Update(SelectedOrder.Product);
                     SelectAllHis();
                 }
 

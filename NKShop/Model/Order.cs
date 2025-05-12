@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,20 +19,6 @@ namespace NKShop.Model
         public Courier Courier { get; set; }
         public Product Product { get; set; }
 
-        public bool SetCourierIsFree
-        {
-            get
-            {
-                if (CourierID != 1 && IsReady == true)
-                {
-                    return Courier.CourierIsFree = true;
-                }
-                else if (CourierID != 1 && IsReady == false)
-                {
-                    return Courier.CourierIsFree = false;
-                } else return false;
-            }
-        }
         public string IsReadyText
         {
             get

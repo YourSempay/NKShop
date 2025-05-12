@@ -7,7 +7,7 @@
         xmlns:mvvm="clr-namespace:NKShop.VM"
         DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
-        Title="Список активных заказов" Height="470" Width="800" Background="#FF847C7C">
+        Title="Список активных заказов" Height="470" Width="800" MaxHeight="470" MaxWidth="800" MinHeight="470" MinWidth="800" Background="#FF847C7C">
     <Window.Resources>
         <mvvm:OrderListMVVM x:Key="vm"/>
     </Window.Resources>
@@ -29,7 +29,7 @@
             </ListView.ContextMenu >
             <ListView.View >
                 <GridView >
-                    <GridViewColumn Header="Товар в заказе" DisplayMemberBinding="{Binding Product.Title}" Width="100"/>
+                    <GridViewColumn Header="Товар в заказе" DisplayMemberBinding="{Binding Product.TitleBlock}" Width="100"/>
                     <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding Quantity}" Width="130" />
                     <GridViewColumn Header="Полная цена" DisplayMemberBinding="{Binding FullPrice}"  Width="100" />
                     <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding Courier.FIO}" Width="140" />

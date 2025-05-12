@@ -26,6 +26,7 @@ namespace NKShop.VM
             }
         }
 
+
         private ObservableCollection<Courier> couriers = new();
 
         public ObservableCollection<Courier> Couriers
@@ -43,13 +44,15 @@ namespace NKShop.VM
         public CommandMvvm DeleteCourier { get; set; }
 
 
+
+
         public CourierListMVVM()
         {
             SelectAll();
 
             AddCourier = new CommandMvvm(() =>
             {
-                CourierAdd ca = new CourierAdd(SelectedCourier);
+                CourierAdd ca = new CourierAdd(new Courier());
                 ca.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -59,7 +62,6 @@ namespace NKShop.VM
         {
             Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAllProtect());
         }
-
 
     }
 }

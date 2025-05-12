@@ -7,7 +7,7 @@
         xmlns:mvvm="clr-namespace:NKShop.VM"
         DataContext="{DynamicResource vm}"
         mc:Ignorable="d"
-        Title="Добавление курьера" Height="450" Width="800" Background="#FF847C7C">
+        Title="Добавление курьера" Height="470" Width="800" MaxHeight="470" MaxWidth="800" MinHeight="470" MinWidth="800" Background="#FF847C7C">
     <Window.Resources>
         <mvvm:CourierAddMVVM x:Key="vm"/>
     </Window.Resources>

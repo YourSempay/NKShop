@@ -38,7 +38,7 @@ namespace NKShop.Model
                     int id = (int)(ulong)cmd.ExecuteScalar();
                     if (id > 0)
                     {
-                        MessageBox.Show(id.ToString());
+                        MessageBox.Show("Курьер успешно добавлен!");
                         courier.Id = id;
                         result = true;
                     }
@@ -125,7 +125,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"select `id`, `first_name`, `pledge`, `work_start`, `quantity_product`, `last_name`, `patronymic` from `courier` where `id` > {1} ");
+                var command = connection.CreateCommand($"SELECT c.`id`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, CASE WHEN o.`is_ready` IS NULL THEN FALSE WHEN o.`is_ready` = true THEN FALSE WHEN o.`is_ready` = false THEN TRUE END AS `is_ready` FROM `courier` c   LEFT JOIN `order` o   ON o.`courier_id` = c.`id` WHERE c.`id` > {1}");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -157,6 +157,8 @@ namespace NKShop.Model
                         if (!dr.IsDBNull(6))
                             patronymic = dr.GetString("patronymic");
 
+                        bool is_ready = dr.GetBoolean("is_ready");
+
                         couriers.Add(new Courier
                         {
                             Id = id,
@@ -166,6 +168,7 @@ namespace NKShop.Model
                             LastName = last_name,
                             Patronymic = patronymic,
                             FirstName = first_name,
+                            CourierIsFree = is_ready,
                         });
                     }
                 }
