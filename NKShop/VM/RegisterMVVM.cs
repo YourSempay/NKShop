@@ -12,6 +12,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace NKShop.VM
 {
+
     internal class RegisterMVVM : BaseVM
     {
         public CommandMvvm Login { get; set; }

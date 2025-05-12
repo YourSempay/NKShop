@@ -16,6 +16,20 @@ namespace NKShop.VM
     {
         public CommandMvvm AddCourier { get; set; }
 
+
+        private string windowinfo;
+
+        public string WindowInfo
+        {
+            get => windowinfo;
+            set
+            {
+                windowinfo = value;
+                Signal();
+            }
+        }
+
+
         private string buttonadd;
 
         public string ButtonAdd
@@ -147,11 +161,13 @@ namespace NKShop.VM
             if (SelectedCourier.Id == 0)
             {
                 ButtonAdd = "Добавить курьера";
+                WindowInfo = "Добавление курьера";
                 CourierWorkStart = DateTime.Today;
             }
             else
             {
                 ButtonAdd = "Изменить информацию о курьере";
+                WindowInfo = "Изменение информации о курьере";
                 CourierWorkStart = SelectedCourier.WorkStart;
                 CourierPledge = SelectedCourier.Pledge;
                 CourierFirstName = SelectedCourier.FirstName;
