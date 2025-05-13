@@ -149,7 +149,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"SELECT c.`id`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, CASE WHEN o.`is_ready` IS NULL THEN FALSE WHEN o.`is_ready` = true THEN FALSE WHEN o.`is_ready` = false THEN TRUE END AS `is_ready` FROM `courier` c   LEFT JOIN `order` o   ON o.`courier_id` = c.`id` WHERE c.`id` > {1}");
+                var command = connection.CreateCommand($"SELECT c.`id`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, COALESCE(MAX(CASE WHEN o.`is_ready` = false THEN true WHEN o.`is_ready` = true THEN false ELSE NULL END), false) AS `is_ready` FROM `courier` c LEFT JOIN `order` o ON o.`courier_id` = c.`id` WHERE c.`id` > {1} GROUP BY c.`id`;");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -223,7 +223,6 @@ namespace NKShop.Model
 
                 try
                 {
-                    MessageBox.Show("Курьер успешно изменён!");
                     mc.ExecuteNonQuery();
                     result = true;
                 }

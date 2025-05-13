@@ -63,6 +63,11 @@ namespace NKShop.VM
                     SelectedOrder.CourierID = 1;
                     SelectedOrder.Product.Quantity += SelectedOrder.Quantity;
 
+                    if (SelectedOrder.Product.Quantity > 0)
+                    {
+                        SelectedOrder.Product.IsReadyProd = true;
+                    }
+
                     OrderDB.GetDb().Update(SelectedOrder);
                     CourierDB.GetDb().Update(SelectedOrder.Courier);
                     ProductDB.GetDb().Update(SelectedOrder.Product);

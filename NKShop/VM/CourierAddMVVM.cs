@@ -134,6 +134,8 @@ namespace NKShop.VM
                         SelectedCourier.LastName = CourierLastName;
                         SelectedCourier.Patronymic = CourierPatronymic;
                         CourierDB.GetDb().Update(SelectedCourier);
+                        MessageBox.Show("Курьер успешно изменён!");
+
                     }
 
                     close?.Invoke();
