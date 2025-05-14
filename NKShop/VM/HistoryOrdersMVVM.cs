@@ -84,13 +84,12 @@ namespace NKShop.VM
                         SelectedOrder.Product.IsReadyProd = true;
                     }
 
+
                     OrderDB.GetDb().Update(SelectedOrder);
                     CourierDB.GetDb().Update(SelectedOrder.Courier);
                     ProductDB.GetDb().Update(SelectedOrder.Product);
                     SelectAllHis();
                 }
-
-
                 SelectAllHis();
             }, () => SelectedOrder != null);
 

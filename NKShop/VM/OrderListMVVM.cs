@@ -80,7 +80,7 @@ namespace NKShop.VM
                 {
                     if (SelectedOrder.Product.TitleBlock != "Товар в блоке")
                     {
-                        if (SelectedOrder.Product.Quantity - SelectedOrder.Quantity > 0)
+                        if (SelectedOrder.Product.Quantity - SelectedOrder.Quantity >= 0)
                         { 
                             if (SelectedOrder.CourierID != 1)
                             {

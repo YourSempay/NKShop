@@ -20,7 +20,8 @@ namespace NKShop.Model
         {
             List<Order> result = new();
             List<Courier> couriers = new();
-            string query = $"SELECT o.id, `quantity_prod`, `full_price`, `coordinates`, `courier_id`, `product_id`, `is_ready`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, p.`title`, p.`quantity`, p.`price`, p.`is_ready_prod` FROM `order` AS o JOIN `courier` c ON o.`courier_id` = c.`id` JOIN `product` p ON o.`product_id` = p.`id` WHERE p.`title` AND o.`is_ready` = {1} LIKE CONCAT('%', @search, '%') OR c.`last_name` LIKE CONCAT('%', @search, '%')";
+            List<Product> products = new();
+            string query = $"SELECT o.id, `quantity_prod`, `full_price`, `coordinates`, `courier_id`, `product_id`, `is_ready`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, p.`title`, p.`quantity`, p.`price`, p.`is_ready_prod` FROM `order` AS o JOIN `courier` c ON o.`courier_id` = c.`id` JOIN `product` p ON o.`product_id` = p.`id` WHERE o.`is_ready` = 1 AND (p.`title` LIKE CONCAT('%', @search, '%') OR c.`last_name` LIKE CONCAT('%', @search, '%')) LIMIT 0, 1000";
             if (myConnection.OpenConnection())
             {
                 using (var mc = myConnection.CreateCommand(query))
@@ -41,25 +42,41 @@ namespace NKShop.Model
                                 IsReady = dr.GetBoolean("is_ready")
                             };
 
-                            // Поиск объекта-курьера в коллекции couriers по ID
                             var courier = couriers.FirstOrDefault(c => c.Id == order.CourierID);
                             if (courier == null)
                             {
-                                // Создание курьера, если его не было в коллекции
                                 courier = new Courier
                                 {
                                     Id = order.CourierID,
                                     FirstName = dr.GetString("first_name"),
                                     LastName = dr.GetString("last_name"),
-                                    Patronymic = dr.GetString("patronymic")
+                                    Patronymic = dr.GetString("patronymic"),
+                                    Pledge = dr.GetInt32("pledge"),
+                                    WorkStart = dr.GetDateTime("work_start"),
+                                    QuantityProduct = dr.GetInt32("quantity_product"),
                                 };
-                                // Добавление курьера в коллекцию
+
                                 couriers.Add(courier);
                             }
-                            // Указание заказу курьера
+
                             order.Courier = courier;
 
-                            // Добавление заказа в результат запроса
+                            var product = products.FirstOrDefault(p => p.Id == order.ProductID);
+                            if (product == null)
+                            {
+                                product = new Product
+                                {
+                                    Id = order.ProductID,
+                                    Title = dr.GetString("title"),
+                                    Quantity = dr.GetInt32("quantity"),
+                                    Price = dr.GetDecimal("price"),
+                                    IsReadyProd = dr.GetBoolean("is_ready_prod"),
+                                };
+
+                                products.Add(product);
+                            }
+                            order.Product = product;
+
                             result.Add(order);
                         }
                     }
