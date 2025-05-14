@@ -26,6 +26,19 @@ namespace NKShop.VM
                 Signal();
             }
         }
+
+        private string quanityprice;
+
+        public string QuanityPrice
+        {
+            get => quanityprice;
+            set
+            {
+                quanityprice = value;
+                Signal();
+            }
+        }
+
         public CommandMvvm StatSelectAll { get; set; }
         public CommandMvvm StatSelectReady { get; set; }
         public CommandMvvm StatSelectNotReady { get; set; }
@@ -33,21 +46,25 @@ namespace NKShop.VM
 
         public StatisticsMVVM()
         {
+            QuanityPrice = "Сколько потенциально принесли заказы(р)";
             SelectAll();
 
             StatSelectAll = new CommandMvvm(() =>
             {
                 SelectAll();
+                QuanityPrice = "Сколько потенциально принесли заказы(р)";
             }, () => true);
 
             StatSelectReady = new CommandMvvm(() =>
             {
                 SelectReady();
+                QuanityPrice = "Сколько принесли заказы(р)";
             }, () => true);
 
             StatSelectNotReady = new CommandMvvm(() =>
             {
                 SelectNotReady();
+                QuanityPrice = "Сколько должны принести заказы(р)";
             }, () => true);
 
 
@@ -57,17 +74,17 @@ namespace NKShop.VM
 
         private void SelectAll()
         {
-            Statistics = new ObservableCollection<Statistic>(OrderDB.GetDb().SelectStatisticAll());
+            Statistics = new ObservableCollection<Statistic>(StatisticDB.GetDb().SelectStatisticAll());
         }
 
         private void SelectReady()
         {
-            Statistics = new ObservableCollection<Statistic>(OrderDB.GetDb().SelectStatisticReady());
+            Statistics = new ObservableCollection<Statistic>(StatisticDB.GetDb().SelectStatisticReady());
         }
 
         private void SelectNotReady()
         {
-            Statistics = new ObservableCollection<Statistic>(OrderDB.GetDb().SelectStatisticNotReady());
+            Statistics = new ObservableCollection<Statistic>(StatisticDB.GetDb().SelectStatisticNotReady());
         }
 
     }

@@ -16,6 +16,8 @@ namespace NKShop.VM
     {
         public CommandMvvm OrderNotReady { get; set; }
 
+        public CommandMvvm StatisticWindow { get; set; }
+
         private Order selectedorder;
 
         public Order SelectedOrder
@@ -27,6 +29,20 @@ namespace NKShop.VM
                 Signal();
             }
         }
+        private string searchhistory;
+
+        public string SearchHistory
+        {
+
+            get => searchhistory;
+            set
+            {
+                searchhistory = value;
+                SearchHis(searchhistory);
+            }
+        }
+
+
 
         private ObservableCollection<Order> orders = new();
 
@@ -78,12 +94,25 @@ namespace NKShop.VM
                 SelectAllHis();
             }, () => SelectedOrder != null);
 
+            StatisticWindow = new CommandMvvm(() =>
+            {
+                Statistics st = new Statistics();
+                st.ShowDialog();
+                SelectAllHis();
+            }, () => true);
+
         }
 
 
         private void SelectAllHis()
         {
             Orders = new ObservableCollection<Order>(OrderDB.GetDb().SelectAllHis());
+        }
+
+        private void SearchHis(string search)
+        {
+
+            Orders = new ObservableCollection<Order>(SearchListOrders.GetDB().SearchOrder(search));
         }
 
     }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using NKShop.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace NKShop.Model
 {
@@ -13,6 +15,8 @@ namespace NKShop.Model
         public int QuantityOrders { get; set; }
         public decimal QuantitySells { get; set; }
         public int ProductId { get; set; }
+
+        public decimal AllPrice { get; set; }
 
     }
 }
