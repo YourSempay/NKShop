@@ -28,8 +28,8 @@ namespace NKShop.VM
                 if(accounts.Count > 0)
                 {
                     OrdersList ol = new OrdersList();
-                    ol.ShowDialog();
                     close?.Invoke();
+                    ol.ShowDialog();
                 } else MessageBox.Show("Логин или пароль не найден");
 
             }, () => !string.IsNullOrWhiteSpace(LoginAcc) && !string.IsNullOrWhiteSpace(PasswordAcc));

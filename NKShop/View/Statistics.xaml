@@ -1,0 +1,59 @@
+﻿<Window x:Class="NKShop.View.Statistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NKShop"
+        xmlns:mvvm="clr-namespace:NKShop.VM"
+        DataContext="{DynamicResource vm}"
+        mc:Ignorable="d"
+        Title="Статистика продаж" Height="470" Width="800" MaxHeight="470" MaxWidth="800" MinHeight="470" MinWidth="800" Background="#FF847C7C">
+
+    <Window.Resources>
+        <mvvm:StatisticsMVVM x:Key="vm"/>
+    </Window.Resources>
+    
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Statistics}" Foreground="#FF020202" Width="750" Height="350" Background="#FFDEDBDB">
+            <ListView.View >
+                <GridView>
+                    <GridViewColumn Header="Наименование товара" DisplayMemberBinding="{Binding Title}" Width="300" />
+                    <GridViewColumn Header="Количество заказов" DisplayMemberBinding="{Binding QuantityOrders}" Width="200" />
+                    <GridViewColumn Header="Общий вес заказов" DisplayMemberBinding="{Binding QuantitySells}"  Width="240" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="20, 0, 0, 0" VerticalAlignment="Top" Orientation="Horizontal">
+            <Button Content="Заказы которые уже выполнены" MinHeight="40" Width="200" MinWidth="200" Margin="0, 20, 0, 0" FontSize="11" Background="White"  Command="{Binding StatSelectAll}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Все заказы" MinHeight="40" Width="200" MinWidth="250" Margin="48, 20, 0, 0" FontSize="20" Background="White" Command="{Binding StatSelectReady}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Заказы которые ещё не выполнены" MinHeight="40" Width="200" MinWidth="200" Margin="50, 20, 0, 0" FontSize="11" Background="White" Command="{Binding StatSelectNotReady}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

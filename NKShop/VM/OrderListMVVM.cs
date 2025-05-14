@@ -108,7 +108,7 @@ namespace NKShop.VM
                                     SelectAll();
                                 }
                             } else MessageBox.Show("Курьер обязательно должен быть назначен!", "Ошибка!");
-                        } else MessageBox.Show("На складе нет столько товара!", "Ошибка!");
+                        } else MessageBox.Show($"На складе нет столько товара! Не хватает: {Math.Abs(SelectedOrder.Product.Quantity - SelectedOrder.Quantity)}г.", "Ошибка!");
                     } else MessageBox.Show("Товар заблокирован. Для начала разблокируйте его!", "Ошибка!");
                 } else MessageBox.Show("Товар в заказ не назначен. Заказ не может быть выполнен!", "Ошибка!");
                     
