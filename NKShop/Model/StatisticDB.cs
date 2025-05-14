@@ -25,7 +25,6 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                // SELECT ROW_NUMBER() OVER (ORDER BY p.`id`) AS Id, p.`id` AS ProductId, p.`title` AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0) AS quantityorders, COALESCE(SUM(o.`quantity_prod`), 0) AS quantitysells, COALESCE(o.`product_id`, 0) AS product_id, COALESCE(SUM(o.`full_price`), 0) AS allprice FROM `product` p LEFT JOIN `order` o ON o.`product_id` = p.`id` WHERE p.`id` <> 1 GROUP BY p.`id`, p.`title`, o.`product_id`;
                 var command = connection.CreateCommand($"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY p.`id`) AS Id, p.`id` AS ProductId, p.`title` AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0) AS quantityorders, COALESCE(SUM(o.`quantity_prod`), 0) AS quantitysells, 0 AS product_id, COALESCE(SUM(o.`full_price`), 0) AS allprice FROM `product` p LEFT JOIN `order` o ON o.`product_id` = p.`id` WHERE p.`id` <> 1 GROUP BY p.`id`, p.`title` UNION ALL SELECT 1000 AS Id, 1 AS ProductId, 'Итого' AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0), COALESCE(SUM(o.`quantity_prod`), 0), 1 AS product_id, COALESCE(SUM(o.`full_price`), 0) FROM `order` o WHERE o.`product_id` > 1) AS combined;");
                 try
                 {
@@ -81,8 +80,6 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-               // var command = connection.CreateCommand($"SELECT ROW_NUMBER() OVER (ORDER BY p.`id`) AS Id, p.`id` AS ProductId, p.`title` AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0) AS quantityorders, COALESCE(SUM(o.`quantity_prod`), 0) AS quantitysells, COALESCE(o.`product_id`, 0) AS product_id, COALESCE(SUM(o.`full_price`), 0) AS allprice FROM `product` p LEFT JOIN `order` o ON o.`product_id` = p.`id` AND o.`is_ready` = 1 WHERE p.`id` <> 1 GROUP BY p.`id`, p.`title`, o.`product_id`;");
-
                 var command = connection.CreateCommand($"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY p.`id`) AS Id, p.`id` AS ProductId, p.`title` AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0) AS quantityorders, COALESCE(SUM(o.`quantity_prod`), 0) AS quantitysells, 0 AS product_id, COALESCE(SUM(o.`full_price`), 0) AS allprice FROM `product` p LEFT JOIN `order` o ON o.`product_id` = p.`id` WHERE p.`id` <> 1 AND o.is_ready = true GROUP BY p.`id`, p.`title` UNION ALL SELECT 1000 AS Id, 1 AS ProductId, 'Итого' AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0), COALESCE(SUM(o.`quantity_prod`), 0), 1 AS product_id, COALESCE(SUM(o.`full_price`), 0) FROM `order` o WHERE o.`product_id` > 1 AND o.is_ready = true) AS combined;");
                 try
                 {
@@ -138,8 +135,6 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                // var command = connection.CreateCommand($"SELECT ROW_NUMBER() OVER (ORDER BY p.`id`) AS Id, p.`id` AS ProductId, p.`title` AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0) AS quantityorders, COALESCE(SUM(o.`quantity_prod`), 0) AS quantitysells, COALESCE(o.`product_id`, 0) AS product_id, COALESCE(SUM(o.`full_price`), 0) AS allprice FROM `product` p LEFT JOIN `order` o ON o.`product_id` = p.`id` AND o.`is_ready` = 0 WHERE p.`id` <> 1 GROUP BY p.`id`, p.`title`, o.`product_id`;");
-
                 var command = connection.CreateCommand($"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY p.`id`) AS Id, p.`id` AS ProductId, p.`title` AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0) AS quantityorders, COALESCE(SUM(o.`quantity_prod`), 0) AS quantitysells, 0 AS product_id, COALESCE(SUM(o.`full_price`), 0) AS allprice FROM `product` p LEFT JOIN `order` o ON o.`product_id` = p.`id` WHERE p.`id` <> 1 AND o.is_ready = false GROUP BY p.`id`, p.`title` UNION ALL SELECT 1000 AS Id, 1 AS ProductId, 'Итого' AS Title, COALESCE(COUNT(DISTINCT o.`id`), 0), COALESCE(SUM(o.`quantity_prod`), 0), 1 AS product_id, COALESCE(SUM(o.`full_price`), 0) FROM `order` o WHERE o.`product_id` > 1 AND o.is_ready = false) AS combined;");
                 try
                 {
