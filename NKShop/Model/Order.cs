@@ -15,9 +15,12 @@ namespace NKShop.Model
         public string Coordinates { get; set; }
         public int CourierID { get; set; }
         public int ProductID { get; set; }
+
+        public int AccountID   { get; set; }
         public bool IsReady { get; set; }
         public Courier Courier { get; set; }
         public Product Product { get; set; }
+        public Account Account { get; set; }
 
         public string IsReadyText
         {

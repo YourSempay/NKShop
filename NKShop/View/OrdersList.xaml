@@ -22,6 +22,8 @@
                 <ContextMenu >
                     <MenuItem Header="Пометить заказ выполненным" Command="{Binding OrderReady}"/>
                     <MenuItem Header="Назначение курьера" Command="{Binding CourierNew}"/>
+                    <MenuItem Header="Редактирование заказа" Command="{Binding RedactOrder}"/>
+                    <MenuItem Header="Удаление заказа" Command="{Binding DeleteOrder}"/>
                     <MenuItem Header="" IsEnabled="False" />
                     <MenuItem Header="Список курьеров" Command="{Binding ListCouriers}"/>
                     <MenuItem Header="Список товаров" Command="{Binding ListProducts}"/>
@@ -33,7 +35,7 @@
                     <GridViewColumn Header="Общий вес заказа(г)" DisplayMemberBinding="{Binding Quantity}" Width="130" />
                     <GridViewColumn Header="Полная цена" DisplayMemberBinding="{Binding FullPrice}"  Width="100" />
                     <GridViewColumn Header="Назначенный курьер" DisplayMemberBinding="{Binding Courier.FIO}" Width="140" />
-                    <GridViewColumn Header="Координаты заказа" DisplayMemberBinding="{Binding Coordinates}" Width="140" />
+                    <GridViewColumn Header="Адрес заказа" DisplayMemberBinding="{Binding Coordinates}" Width="140" />
                     <GridViewColumn Header="Выполнен ли заказ" DisplayMemberBinding="{Binding IsReadyText}" Width="130" />
                 </GridView>
             </ListView.View>

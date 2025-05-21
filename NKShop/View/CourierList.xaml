@@ -23,7 +23,7 @@
             <ListView.View >
                 <GridView>
                     <GridViewColumn Header="Ф.И.О." DisplayMemberBinding="{Binding FIO}" Width="150" />
-                    <GridViewColumn Header="Внесённый залог" DisplayMemberBinding="{Binding Pledge}" Width="150" />
+                    <GridViewColumn Header="Номер телефона" DisplayMemberBinding="{Binding Pledge}" Width="150" />
                     <GridViewColumn Header="Дата начала работы" DisplayMemberBinding="{Binding WorkStart}" Width="150" />
                     <GridViewColumn Header="Товара доставлено (г)" DisplayMemberBinding="{Binding QuantityProduct}" Width="150" />
                     <GridViewColumn Header="Свободен ли" DisplayMemberBinding="{Binding CourierIsFreeToSting}" Width="140"/>

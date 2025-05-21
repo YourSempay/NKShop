@@ -75,8 +75,8 @@ namespace NKShop.VM
             }
         }
 
-        private int courierpledge;
-        public int CourierPledge
+        private string courierpledge;
+        public string CourierPledge
         {
             get => courierpledge;
             set
@@ -142,8 +142,7 @@ namespace NKShop.VM
                 }
 
             }, () => 
-            CourierWorkStart.Year > 2000 &&
-            CourierPledge > 5000 &&
+            CourierWorkStart.Year >= 2000 &&
             !string.IsNullOrWhiteSpace(CourierFirstName) &&
             !string.IsNullOrWhiteSpace(CourierLastName) &&
             !string.IsNullOrWhiteSpace(CourierPatronymic));

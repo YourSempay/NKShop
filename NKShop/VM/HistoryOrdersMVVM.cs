@@ -62,6 +62,7 @@ namespace NKShop.VM
             OrderNotReady = new CommandMvvm(() =>
             {
                 var orderreturn = MessageBox.Show("Вы уверены что хотите пометить заказ неготовым?", "Подтверждение", MessageBoxButton.YesNo);
+                Product product = SelectedOrder.Product;
 
                 if (orderreturn == MessageBoxResult.Yes)
                 {
@@ -81,13 +82,13 @@ namespace NKShop.VM
 
                     if (SelectedOrder.Product.Quantity > 0)
                     {
-                        SelectedOrder.Product.IsReadyProd = true;
+                        product.IsReadyProd = true;
                     }
 
 
                     OrderDB.GetDb().Update(SelectedOrder);
                     CourierDB.GetDb().Update(SelectedOrder.Courier);
-                    ProductDB.GetDb().Update(SelectedOrder.Product);
+                    ProductDB.GetDb().Update(product);
                     SelectAllHis();
                 }
                 SelectAllHis();

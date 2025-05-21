@@ -1,0 +1,45 @@
+﻿<Window x:Class="NKShop.View.OrderEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        xmlns:local="clr-namespace:NKShop"
+        xmlns:mvvm="clr-namespace:NKShop.VM"
+        DataContext="{DynamicResource vm}"
+        Title="Редактировать заказ" Background="#FF847C7C" Foreground="White" Height="350" Width="400" MinHeight="350" MinWidth="400" MaxHeight="350" MaxWidth="400"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <mvvm:OrderEditViewModel x:Key="vm"/>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Название товара:" Grid.Row="0"/>
+        <TextBox Text="{Binding ProductTitle}" Grid.Row="0" Margin="150,0,0,0" IsReadOnly="True" />
+
+        <TextBlock Text="Общий вес:" Grid.Row="1"/>
+        <TextBox Text="{Binding QuantityText}" Grid.Row="1" Margin="150,0,0,0" IsReadOnly="True"/>
+
+        <TextBlock Text="Полная цена:" Grid.Row="2"/>
+        <TextBox Text="{Binding FullPrice}" Grid.Row="2" Margin="150,0,0,0" IsReadOnly="True"/>
+
+        <TextBlock Text="Назначенный курьер:" Grid.Row="3"/>
+        <TextBox Text="{Binding CourierFIO}" Grid.Row="3" Margin="150,0,0,0" IsReadOnly="True"/>
+
+        <TextBlock Text="Адрес заказа:" Grid.Row="4"/>
+        <TextBox Text="{Binding OrderCoordinates, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Margin="150,0,0,0"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Вывести информацию о заказчике" Command="{Binding ShowCustomerInfo}" Margin="5"/>
+            <Button Content="Изменить информацию" Command="{Binding SaveCommand}" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

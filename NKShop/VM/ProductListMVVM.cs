@@ -26,6 +26,9 @@ namespace NKShop.VM
             }
         }
         public CommandMvvm ProductEditt { get; set; }
+        public CommandMvvm NewProduct { get; set; }
+        public CommandMvvm DeleteProduct { get; set; }
+
 
         private ObservableCollection<Product> products = new();
         public ObservableCollection<Product> Products
@@ -48,6 +51,28 @@ namespace NKShop.VM
                 ProductsEdit pe = new ProductsEdit(SelectedProduct);
                 pe.ShowDialog();
                 SelectAll();
+
+            }, () => SelectedProduct != null);
+
+            NewProduct = new CommandMvvm(() =>
+            {
+                ProductAdd pa = new ProductAdd(new Product());
+                pa.ShowDialog();
+                SelectAll();
+
+            }, () => true);
+
+            DeleteProduct = new CommandMvvm(() =>
+            {
+                var couriervozvrat = MessageBox.Show("Вы уверены что хотите удалить курьера?", "Подтверждение", MessageBoxButton.YesNo);
+
+                if (couriervozvrat == MessageBoxResult.Yes)
+                {
+                    ProductDB.GetDb().Remove(SelectedProduct);
+                    SelectAll();
+                }
+
+                
 
             }, () => SelectedProduct != null);
 

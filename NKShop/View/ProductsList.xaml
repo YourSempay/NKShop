@@ -30,8 +30,24 @@
         </ListView>
 
 
-        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="20, 0, 0, 0" VerticalAlignment="Top">
-            <Button Content="Редактировать информацию о товаре" MinHeight="40" Width="400" MinWidth="400" Margin="0, 20, 0, 0" FontSize="20" Background="White" Command="{Binding ProductEditt}">
+        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="20, 0, 0, 0" VerticalAlignment="Top" Orientation="Horizontal">
+            <Button Content="Редактировать информацию" MinHeight="40" Width="300" MinWidth="300" Margin="0, 20, 0, 0" FontSize="20" Background="White" Command="{Binding ProductEditt}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Новый товар" MinHeight="40" Width="200" MinWidth="200" Margin="30, 20, 0, 0" FontSize="20" Background="White" Command="{Binding NewProduct}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Удалить товар" MinHeight="40" Width="200" MinWidth="200" Margin="30, 20, 0, 0" FontSize="20" Background="White" Command="{Binding DeleteProduct}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>

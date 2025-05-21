@@ -51,7 +51,7 @@ namespace NKShop.Model
                                     FirstName = dr.GetString("first_name"),
                                     LastName = dr.GetString("last_name"),
                                     Patronymic = dr.GetString("patronymic"),
-                                    Pledge = dr.GetInt32("pledge"),
+                                    Pledge = dr.GetString("phone_number"),
                                     WorkStart = dr.GetDateTime("work_start"),
                                     QuantityProduct = dr.GetInt32("quantity_product"),
                                 };

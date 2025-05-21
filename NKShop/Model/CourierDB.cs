@@ -88,7 +88,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"select `id`, `first_name`, `pledge`, `work_start`, `quantity_product`, `last_name`, `patronymic` from `courier`");
+                var command = connection.CreateCommand($"select `id`, `first_name`, `phone_number`, `work_start`, `quantity_product`, `last_name`, `patronymic` from `courier`");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -100,9 +100,9 @@ namespace NKShop.Model
                         if (!dr.IsDBNull(1))
                             first_name = dr.GetString("first_name");
 
-                        int pledge = 0;
+                        string pledge = string.Empty;
                         if (!dr.IsDBNull(2))
-                            pledge = dr.GetInt32("pledge");
+                            pledge = dr.GetString("phone_number");
 
                         int quantity_product = 0;
                         if (!dr.IsDBNull(3))
@@ -149,7 +149,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"SELECT c.`id`, c.`first_name`, c.`pledge`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, COALESCE(MAX(CASE WHEN o.`is_ready` = false THEN true WHEN o.`is_ready` = true THEN false ELSE NULL END), false) AS `is_ready` FROM `courier` c LEFT JOIN `order` o ON o.`courier_id` = c.`id` WHERE c.`id` > {1} GROUP BY c.`id`;");
+                var command = connection.CreateCommand($"SELECT c.`id`, c.`first_name`, c.`phone_number`, c.`work_start`, c.`quantity_product`, c.`last_name`, c.`patronymic`, COALESCE(MAX(CASE WHEN o.`is_ready` = false THEN true WHEN o.`is_ready` = true THEN false ELSE NULL END), false) AS `is_ready` FROM `courier` c LEFT JOIN `order` o ON o.`courier_id` = c.`id` WHERE c.`id` > {1} GROUP BY c.`id`;");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -161,9 +161,9 @@ namespace NKShop.Model
                         if (!dr.IsDBNull(1))
                             first_name = dr.GetString("first_name");
 
-                        int pledge = 0;
+                        string pledge = string.Empty;
                         if (!dr.IsDBNull(2))
-                            pledge = dr.GetInt32("pledge");
+                            pledge = dr.GetString("phone_number");
 
                         int quantity_product = 0;
                         if (!dr.IsDBNull(3))
@@ -213,9 +213,9 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var mc = connection.CreateCommand($"update `courier` set `pledge`=@pledge, `work_start`=@work_start, `quantity_product`=@quantity_product, `first_name`=@first_name, `last_name`=@last_name, `patronymic`=@patronymic  where `id` = {edit.Id}");
+                var mc = connection.CreateCommand($"update `courier` set `phone_number`=@phone_number, `work_start`=@work_start, `quantity_product`=@quantity_product, `first_name`=@first_name, `last_name`=@last_name, `patronymic`=@patronymic  where `id` = {edit.Id}");
                 mc.Parameters.Add(new MySqlParameter("quantity_product", edit.QuantityProduct));
-                mc.Parameters.Add(new MySqlParameter("pledge", edit.Pledge));
+                mc.Parameters.Add(new MySqlParameter("phone_number", edit.Pledge));
                 mc.Parameters.Add(new MySqlParameter("work_start", edit.WorkStart));
                 mc.Parameters.Add(new MySqlParameter("first_name", edit.FirstName));
                 mc.Parameters.Add(new MySqlParameter("last_name", edit.LastName));

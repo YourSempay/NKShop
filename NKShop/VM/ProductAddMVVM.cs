@@ -12,9 +12,9 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace NKShop.VM
 {
-    internal class ProductEditMVVM : BaseVM
+    internal class ProductAddMVVM : BaseVM
     {
-        public CommandMvvm EditInfoProduct { get; set; }
+        public CommandMvvm AddProduct { get; set; }
 
         private Product selectedproduct = new();
 
@@ -40,42 +40,34 @@ namespace NKShop.VM
             }
         }
 
-        public ProductEditMVVM() 
+
+        public ProductAddMVVM()
         {
-
-            
-
-            EditInfoProduct = new CommandMvvm(() =>
+            AddProduct = new CommandMvvm(() =>
             {
-                var orderreturn = MessageBox.Show("Вы уверены что хотите изменить товар?", "Подтверждение", MessageBoxButton.YesNo);
+                var orderreturn = MessageBox.Show("Вы уверены что хотите добавить новый товар?", "Подтверждение", MessageBoxButton.YesNo);
 
                 if (orderreturn == MessageBoxResult.Yes)
                 {
-                   if(SelectedProduct.Quantity != 0)
-                   {
-                        if (Ready == "Товар готов")
-                        {
-                            SelectedProduct.IsReadyProd = true;
-                        }
-                        else SelectedProduct.IsReadyProd = false;
-
-                        ProductDB.GetDb().Update(SelectedProduct);
-                        close?.Invoke();
-                   } else
+                    if (Ready == "Товар готов")
                     {
-                        SelectedProduct.IsReadyProd = false;
-                        ProductDB.GetDb().Update(SelectedProduct);
-                        close?.Invoke();
+                        SelectedProduct.IsReadyProd = true;
                     }
-                    
+                    else SelectedProduct.IsReadyProd = false;
 
+                    Product newproduct = new Product();
+                    newproduct.Title = SelectedProduct.Title;
+                    newproduct.Price = SelectedProduct.Price;
+                    newproduct.IsReadyProd = SelectedProduct.IsReadyProd;
+                    newproduct.Quantity = SelectedProduct.Quantity;
+                    ProductDB.GetDb().Insert(newproduct);
+                    close?.Invoke();
                 }
 
-            }, () =>
-            Ready != null &&
-            SelectedProduct.Quantity >= 0
-               );
+            }, () => true);
+
         }
+
 
         Action close;
         internal void SetClose(Action close)
@@ -87,7 +79,6 @@ namespace NKShop.VM
         {
             SelectedProduct = SelProd;
         }
-
 
     }
 }

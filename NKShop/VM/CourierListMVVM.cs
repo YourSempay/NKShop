@@ -66,19 +66,25 @@ namespace NKShop.VM
 
             DeleteCourier = new CommandMvvm(() =>
             { 
-                var couriervozvrat = MessageBox.Show("Вы уверены что хотите удалить курьера?", "Подтверждение", MessageBoxButton.YesNo);
-
-                if (couriervozvrat == MessageBoxResult.Yes)
+                if (SelectedCourier.CourierIsFree == false)
                 {
-                    CourierDB.GetDb().Remove(SelectedCourier);
-                    SelectAll();
+                    var couriervozvrat = MessageBox.Show("Вы уверены что хотите удалить курьера?", "Подтверждение", MessageBoxButton.YesNo);
+
+                    if (couriervozvrat == MessageBoxResult.Yes)
+                    {
+                        CourierDB.GetDb().Remove(SelectedCourier);
+                        SelectAll();
+                    }
                 }
+                else MessageBox.Show("Курьер назначен на заказ, вы не можете его удалить!", "Ошибка!");
             }, () => SelectedCourier != null);
         }
 
         private void SelectAll()
         {
             Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAllProtect());
+
+
         }
 
     }

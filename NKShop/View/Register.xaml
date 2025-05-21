@@ -41,6 +41,16 @@
                     </Style>
                 </Button.Resources>
             </Button>
+
+            <Button Content="Регистрация" MinHeight="25" MinWidth="75" Margin="0, 25, 0, 0" FontSize="20" Background="White" Command="{Binding Register}">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">

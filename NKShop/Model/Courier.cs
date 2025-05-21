@@ -13,7 +13,7 @@ namespace NKShop.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
-        public int Pledge { get; set; }
+        public string Pledge { get; set; }
         public DateTime WorkStart { get; set; }
         public int QuantityProduct { get; set; }
 
@@ -40,7 +40,7 @@ namespace NKShop.Model
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(FirstName) && string.IsNullOrWhiteSpace(Patronymic))
+                if (LastName == "Не назначен")
                 {
                     return LastName;
                 }
