@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using MySqlX.XDevAPI;
 using NKShop.Model;
@@ -100,6 +101,7 @@ namespace NKShop.VM
                     MessageBox.Show($"ФИО: {account.LastName} {account.FirstName} {account.Patronymic}\n" +
                                     $"Телефон: {account.NumberAccount}\n" +
                                     $"Адрес(По умолчанию): {account.AddressStandart}", "Информация о заказчике");
+                    var id = account.Id;
                 }
                 else
                 {
@@ -127,5 +129,6 @@ namespace NKShop.VM
                 FullPrice = SelectedOrder.FullPrice;
             }
         }
+
     }
 }

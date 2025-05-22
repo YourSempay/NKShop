@@ -73,8 +73,6 @@ namespace NKShop.VM
                 Signal();
             }
         }
-
-        int currentUserId = RegisterMVVM.Session.UserId;
         public OrderAddMVVM()
         {
             SelectAll();
@@ -101,7 +99,8 @@ namespace NKShop.VM
                                 neworder.CourierID = 1;
                                 neworder.IsReady = false;
                                 neworder.ProductID = SelectedProduct.Id;
-                                neworder.AccountID = currentUserId;
+                                neworder.AccountID = useaccount.Id;
+                                neworder.Account = useaccount;
                                 OrderDB.GetDb().Insert(neworder);
                                 close?.Invoke();
                             }
@@ -112,6 +111,7 @@ namespace NKShop.VM
 
             }, () =>
             QuantityN < 10000
+            && QuantityN >= 100
            && SelectedProduct != null
            && !string.IsNullOrWhiteSpace(DeliveryAddress));
 

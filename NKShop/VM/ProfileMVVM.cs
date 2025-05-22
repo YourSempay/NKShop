@@ -99,6 +99,7 @@ namespace NKShop.VM
                useaccount.AddressStandart = DeliveryAddress;
                useaccount.NumberAccount = PhoneNumber;
                 AccountDB.GetDb().Update(useaccount);
+                close?.Invoke();
 
             }, () => 
             FirstName?.Length > 2 &&

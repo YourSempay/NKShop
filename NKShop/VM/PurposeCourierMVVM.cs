@@ -53,12 +53,17 @@ namespace NKShop.VM
             }
         }
 
-        private void SelectAll()
+        private Account accnow;
+        public Account Accnow
         {
-            Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAll());
+            get => accnow;
+            set
+            {
+                accnow = value;
+                Signal();
+            }
         }
-
-       public PurposeCourierMVVM()
+        public PurposeCourierMVVM()
         {
             SelectAll();
 
@@ -67,10 +72,14 @@ namespace NKShop.VM
                 SelectedOrder.CourierID = SelectedCourier.Id;
                 OrderDB.GetDb().Update(SelectedOrder);
                 close?.Invoke();
-
             }, () => SelectedCourier != null);
 
 
+        }
+
+        private void SelectAll()
+        {
+            Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAll());
         }
 
         Action close;

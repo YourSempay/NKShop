@@ -24,6 +24,7 @@ namespace NKShop.View
         public OrdersList()
         {
             InitializeComponent();
+            ((OrderListMVVM)this.DataContext).SetClose(Close);
         }
     }
 }

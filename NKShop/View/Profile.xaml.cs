@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using NKShop.VM;
 
 namespace NKShop.View
 {
@@ -22,6 +23,7 @@ namespace NKShop.View
         public Profile()
         {
             InitializeComponent();
+            ((ProfileMVVM)this.DataContext).SetClose(Close);
         }
     }
 }

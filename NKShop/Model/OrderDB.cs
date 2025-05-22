@@ -66,7 +66,7 @@ namespace NKShop.Model
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand($"SELECT \r\n    o.`id`, \r\n    o.`quantity_prod`, \r\n    o.`full_price`, \r\n    o.`coordinates`, \r\n    o.`courier_id`, \r\n    o.`product_id`, \r\n    o.`is_ready`, \r\n    c.`first_name`, \r\n    c.`phone_number`, \r\n    c.`work_start`, \r\n    c.`quantity_product`, \r\n    c.`last_name`, \r\n    c.`patronymic`, \r\n    p.`title`, \r\n    p.`quantity`, \r\n    p.`price`, \r\n    p.`is_ready_prod`,\r\n    a.`id` AS account_id,\r\n    a.`login`,\r\n    a.`password`,\r\n    a.`phone_number_acc`,\r\n    a.`adm`,\r\n    a.`first_name_acc`,\r\n    a.`last_name_acc`,\r\n    a.`patronymic_acc`,\r\n    a.`address_standart`\r\nFROM `order` o\r\nJOIN `courier` c ON o.`courier_id` = c.`id`\r\nJOIN `product` p ON o.`product_id` = p.`id`\r\nJOIN `account` a ON o.`account_id` = a.`id`\r\nWHERE o.`is_ready` = {0}");
+                var command = connection.CreateCommand($"SELECT \r\n    o.`id`, \r\n    o.`quantity_prod`, \r\n    o.`full_price`, \r\n    o.`coordinates`, \r\n    o.`courier_id`, \r\n    o.`product_id`, \r\n    o.`is_ready`, \r\n    c.`first_name`, \r\n    c.`phone_number`, \r\n    c.`work_start`, \r\n    c.`quantity_product`, \r\n    c.`last_name`, \r\n    c.`patronymic`, \r\n    p.`title`, \r\n    p.`quantity`, \r\n    p.`price`, \r\n    p.`is_ready_prod`, \r\n    a.`id` AS account_id,\r\n    a.`login`,\r\n    a.`password`,\r\n    a.`phone_number_acc`,\r\n    a.`adm`,\r\n    a.`first_name_acc`,\r\n    a.`last_name_acc`,\r\n    a.`patronymic_acc`,\r\n    a.`address_standart`\r\nFROM `order` o\r\nLEFT JOIN `courier` c ON o.`courier_id` = c.`id`\r\nJOIN `product` p ON o.`product_id` = p.`id`\r\nJOIN `account` a ON o.`account_id` = a.`id`\r\nWHERE o.`is_ready` = 0;");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
@@ -127,7 +127,7 @@ namespace NKShop.Model
                         if (!dr.IsDBNull(14))
                             price = dr.GetDecimal("price");
 
-                        int account_id = dr.GetInt32(15);
+                        int account_id = dr.GetInt32("account_id");
 
                         string login = string.Empty;
                         if (!dr.IsDBNull(16))

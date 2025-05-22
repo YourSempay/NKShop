@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Mysqlx.Connection;
 using NKShop.Model;
 using NKShop.View;
 using NKShop.VM;
@@ -72,6 +73,18 @@ namespace NKShop.VM
             }
         }
 
+        private ObservableCollection<Account> accounts = new();
+
+        public ObservableCollection<Account> Accounts
+        {
+            get => accounts;
+            set
+            {
+                accounts = value;
+                Signal();
+            }
+        }
+
         public OrderListMVVM()
         {
             SelectAll();
@@ -129,6 +142,7 @@ namespace NKShop.VM
             {
                 var redactWindow = new OrderEditWindow(SelectedOrder);
                 redactWindow.ShowDialog();
+                SelectAll();
             }, () => SelectedOrder != null);
 
 
@@ -194,6 +208,13 @@ namespace NKShop.VM
         {
             Orders = new ObservableCollection<Order>(OrderDB.GetDb().SelectAll());
             Couriers = new ObservableCollection<Courier>(CourierDB.GetDb().SelectAll());
+            Accounts = new ObservableCollection<Account>(AccountDB.GetDb().SelectAllUser());
+        }
+
+        Action close;
+        internal void SetClose(Action close)
+        {
+            this.close = close;
         }
 
     }
