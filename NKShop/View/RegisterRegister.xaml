@@ -85,7 +85,7 @@
             <TextBlock Text="Роль" MinHeight="30" HorizontalAlignment="Center" Margin="0, 5, 0, 0" FontSize="20" Foreground="White"  />
             <ComboBox  MinHeight="30" MinWidth="250" Width="250" BorderBrush="#FF21201E"  Background="White" SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}">
                 <sys:String>Администратор</sys:String>
-                <sys:String>Полоьзователь</sys:String>
+                <sys:String>Пользователь</sys:String>
             </ComboBox>
 
         </StackPanel>

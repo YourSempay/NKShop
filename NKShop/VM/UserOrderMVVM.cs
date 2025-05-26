@@ -20,6 +20,8 @@ namespace NKShop.VM
         public CommandMvvm FilterNotReadyOrders { get; set; }
         public CommandMvvm CreateNewOrder { get; set; }
         public CommandMvvm Profile { get; set; }
+
+        public CommandMvvm Catalog { get; set; }
         public ObservableCollection<Order> Orders
         {
             get => orders;
@@ -59,6 +61,14 @@ namespace NKShop.VM
                 pf.ShowDialog();
                 SelectAllNotReady();
             }, () => true);
+
+            Catalog = new CommandMvvm(() =>
+            {
+                Catalog cl = new Catalog();
+                cl.ShowDialog();
+                SelectAllNotReady();
+            }, () => true);
+
 
             FilterReadyOrders = new CommandMvvm(() =>
             {
